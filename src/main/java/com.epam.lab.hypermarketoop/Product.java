@@ -4,11 +4,13 @@ public abstract class Product {
     private String name;
     private int price;
     private ProductType type;
+    private String description;
 
-    public Product(String name, int price, ProductType type){
+    public Product(String name, int price, ProductType type, String description){
         this.name = name;
         this.price = price;
         this.type = type;
+        this.description = description;
     }
 
     public String getName(){
@@ -23,9 +25,13 @@ public abstract class Product {
         return this.type;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
-        return "Product: "+ name + " Price: " + price ;
+        return "Product: "+ name + " Price: " + price + " Description: " + description;
     }
 
     public void printDetails(){
