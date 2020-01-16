@@ -1,4 +1,7 @@
-package com.epam.lab.hypermarketoop;
+package com.epam.lab.hypermarketoop.plumbingproducts;
+
+import com.epam.lab.hypermarketoop.Product;
+import com.epam.lab.hypermarketoop.ProductType;
 
 public class Washbasin extends Product {
 

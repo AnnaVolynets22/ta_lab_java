@@ -1,5 +1,10 @@
 package com.epam.lab.hypermarketoop;
 
+import com.epam.lab.hypermarketoop.decorativeproducts.Paint;
+import com.epam.lab.hypermarketoop.plumbingproducts.Bath;
+import com.epam.lab.hypermarketoop.plumbingproducts.Washbasin;
+import com.epam.lab.hypermarketoop.woodproducts.Table;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -20,7 +25,7 @@ public class Main {
 
         hypermarket.addProduct(products);
 
-        Product wproduct = new WoodTable("wood", 1500, ProductType.WOOD, "oak");
+        Product wproduct = new Table("wood", 1500, ProductType.WOOD, "oak");
         hypermarket.addProduct(wproduct);
 
         Product dproduct = new Paint("decor", 800, ProductType.DECORATIVE, "color:red");
@@ -30,14 +35,14 @@ public class Main {
         hypermarket.getPlumbingProducts().forEach(product -> product.printDetails());
 
         System.out.println("Wood products:");
-        hypermarket.getWoodProducts().forEach(product -> product.printDetails());;
+        hypermarket.getWoodProducts().forEach(product -> product.printDetails());
 
         System.out.println("Decorative products:");
-        hypermarket.getDecorativeProducts().forEach(product -> product.printDetails());;
+        hypermarket.getDecorativeProducts().forEach(product -> product.printDetails());
 
         System.out.println("List of \"washbasin\" products where price <= 1000:");
         hypermarket.find("washbasin", ProductType.PLUMBING, 1000).
-                forEach(product -> product.printDetails());;
+                forEach(product -> product.printDetails());
 
          Address clientAddress = new Address("Ukraine", "Lviv", "Hirnyka", 1);
          Client client1 = new Client("Ivanov", "Ivan", clientAddress, "ivan@email.com");
