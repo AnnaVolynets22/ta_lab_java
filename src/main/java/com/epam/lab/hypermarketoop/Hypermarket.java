@@ -3,8 +3,6 @@ package com.epam.lab.hypermarketoop;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static com.epam.lab.hypermarketoop.ProductType.*;
-
 public class Hypermarket {
     private String name;
     private Address address;
