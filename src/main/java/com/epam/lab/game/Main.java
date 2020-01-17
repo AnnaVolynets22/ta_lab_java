@@ -3,7 +3,7 @@ package com.epam.lab.game;
 public class Main {
     public static void main(String[] args){
 
-        Game game = new Game();
+        BattleGame game = new BattleGame();
         game.start();
 
     }
