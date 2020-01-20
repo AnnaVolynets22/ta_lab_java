@@ -52,7 +52,7 @@ public class BattleGame {
             case("Kozak"):
                 return new Kozak();
             default:
-                throw new InvalidParameterException("Cannon find warrior of entered type.");
+                throw new InvalidParameterException("Cannot find warrior of entered type.");
         }
     }
 
@@ -67,7 +67,7 @@ public class BattleGame {
             case("Sword"):
                 return new Sword();
             default:
-                throw new InvalidParameterException("Cannon find weapon of entered type.");
+                throw new InvalidParameterException("Cannot find weapon of entered type.");
         }
     }
 
