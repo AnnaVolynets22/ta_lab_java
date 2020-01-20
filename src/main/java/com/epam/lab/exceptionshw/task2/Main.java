@@ -6,7 +6,6 @@ import com.epam.lab.exceptionshw.task2.exception_classes.ColorException;
 import com.epam.lab.exceptionshw.task2.exception_classes.TypeException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
 

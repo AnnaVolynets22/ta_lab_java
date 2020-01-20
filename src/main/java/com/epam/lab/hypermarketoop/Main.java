@@ -32,17 +32,17 @@ public class Main {
         hypermarket.addProduct(dproduct);
 
         System.out.println("Plumbing products:");
-        hypermarket.getPlumbingProducts().forEach(product -> product.printDetails());
+        hypermarket.getPlumbingProducts().forEach(Product::printDetails);
 
         System.out.println("Wood products:");
-        hypermarket.getWoodProducts().forEach(product -> product.printDetails());
+        hypermarket.getWoodProducts().forEach(Product::printDetails);
 
         System.out.println("Decorative products:");
-        hypermarket.getDecorativeProducts().forEach(product -> product.printDetails());
+        hypermarket.getDecorativeProducts().forEach(Product::printDetails);
 
         System.out.println("List of \"washbasin\" products where price <= 1000:");
         hypermarket.find("washbasin", ProductType.PLUMBING, 1000).
-                forEach(product -> product.printDetails());
+                forEach(Product::printDetails);
 
          Address clientAddress = new Address("Ukraine", "Lviv", "Hirnyka", 1);
          Client client1 = new Client("Ivanov", "Ivan", clientAddress, "ivan@email.com");
@@ -52,7 +52,7 @@ public class Main {
          hypermarket.addOrder(order);
 
          System.out.println("Orders list:");
-         hypermarket.getOrdersList().forEach(orderitem -> orderitem.print());
+         hypermarket.getOrdersList().forEach(Order::print);
 
     }
 }

@@ -10,6 +10,7 @@ public abstract class Warrior {
     private int health;
     private int blockMax;
     private WeaponBehavior weapon;
+    private Random rnd = new Random();
 
     public Warrior( String name, int health, int blockMax) {
         this.name = name;
@@ -44,7 +45,6 @@ public abstract class Warrior {
     }
 
     public int block(){
-        Random rnd = new Random();
         return rnd.nextInt(blockMax) + 1;
     }
 }

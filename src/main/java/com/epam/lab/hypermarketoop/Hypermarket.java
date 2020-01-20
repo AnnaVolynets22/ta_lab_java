@@ -1,30 +1,30 @@
 package com.epam.lab.hypermarketoop;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 public class Hypermarket {
     private String name;
     private Address address;
-    private ArrayList<Product> plumbingProducts = new ArrayList<>();
-    private ArrayList<Product> woodProducts =  new ArrayList<>();
-    private ArrayList<Product> decorativeProducts =  new ArrayList<>();
-    private ArrayList<Order> ordersList = new ArrayList<>();
+    private List<Product> plumbingProducts = new ArrayList<>();
+    private List<Product> woodProducts =  new ArrayList<>();
+    private List<Product> decorativeProducts =  new ArrayList<>();
+    private List<Order> ordersList = new ArrayList<>();
 
     public Hypermarket(String name, Address address){
         this.name = name;
         this.address = address;
     }
 
-    public ArrayList<Product> getPlumbingProducts() {
+    public List<Product> getPlumbingProducts() {
         return plumbingProducts;
     }
 
-    public ArrayList<Product> getWoodProducts() {
+    public List<Product> getWoodProducts() {
         return woodProducts;
     }
 
-    public ArrayList<Product> getDecorativeProducts() {
+    public List<Product> getDecorativeProducts() {
         return decorativeProducts;
     }
 
@@ -36,7 +36,7 @@ public class Hypermarket {
         return address;
     }
 
-    public ArrayList<Order> getOrdersList() {
+    public List<Order> getOrdersList() {
         return ordersList;
     }
 
@@ -51,10 +51,9 @@ public class Hypermarket {
         }
     }
 
-    public void addProduct(ArrayList<Product> products) {
-        Iterator<Product> iter = products.iterator();
-        while(iter.hasNext()){
-            addProduct(iter.next());
+    public void addProduct(List<Product> products) {
+        for (Product product : products) {
+            addProduct(product);
         }
     }
 
@@ -62,12 +61,12 @@ public class Hypermarket {
         ordersList.add(order);
     }
 
-    public void addOrder(ArrayList<Order> orders){
+    public void addOrder(List<Order> orders){
         ordersList = orders;
     }
 
-    public ArrayList<Product> find(String name, ProductType type, int price) {
-        ArrayList<Product> productList = new ArrayList<>();
+    public List<Product> find(String name, ProductType type, int price) {
+        List<Product> productList = new ArrayList<>();
 
         switch (type){
             case PLUMBING:
@@ -77,7 +76,7 @@ public class Hypermarket {
                 productList = find(woodProducts, name, price);
                 break;
             case DECORATIVE:
-                productList = find(plumbingProducts, name, price);
+                productList = find(decorativeProducts, name, price);
                 break;
             default:
                 System.out.println("Sorry. Cannot find product of selected type.");
@@ -85,14 +84,11 @@ public class Hypermarket {
         return productList;
     }
 
-    private ArrayList<Product> find(ArrayList<Product> products, String name, int price){
-        ArrayList<Product> productList = new ArrayList<>();
-        Product  product;
-        Iterator<Product> iter = products.iterator();
+    private List<Product> find(List<Product> products, String name, int price){
+        List<Product> productList = new ArrayList<>();
 
-        while(iter.hasNext()){
-            product = iter.next();
-            if(product.getName().equals(name) && (product.getPrice() <= price)){
+        for (Product product : products) {
+            if (product.getName().equals(name) && (product.getPrice() <= price)) {
                 productList.add(product);
             }
         }

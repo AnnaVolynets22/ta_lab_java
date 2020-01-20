@@ -1,5 +1,6 @@
 package com.epam.lab.game;
 
+import com.epam.lab.game.constants.Constants;
 import com.epam.lab.game.enums.WarriorType;
 import com.epam.lab.game.enums.WeaponType;
 import com.epam.lab.game.warriors.*;
@@ -10,12 +11,10 @@ import java.util.Scanner;
 
 public class BattleGame {
 
-    private Scanner scanner;
-
     public void start() {
         System.out.println("Following warriors are available: Roman, Spartan, Samurai, Ninja, Kozak");
         System.out.println("Please enter name of your warrior character for the battle:");
-        scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         String warriorType = scanner.next();
         //Random selection of enemy type
         String randomWarriorType = WarriorType.getRandomWarrior().toString();
@@ -40,16 +39,16 @@ public class BattleGame {
     }
 
     private Warrior createWarrior(String warriorType){
-        switch(warriorType){
-            case("Roman"):
+        switch(warriorType.toUpperCase()){
+            case("ROMAN"):
                 return new Roman();
-            case("Spartan"):
+            case("SPARTAN"):
                 return new Spartan();
-            case("Samurai"):
+            case("SAMURAI"):
                 return new Samurai();
-            case("Ninja"):
+            case("NINJA"):
                 return new Ninja();
-            case("Kozak"):
+            case("KOZAK"):
                 return new Kozak();
             default:
                 throw new InvalidParameterException("Cannot find warrior of entered type.");
@@ -57,14 +56,14 @@ public class BattleGame {
     }
 
     private  WeaponBehavior chooseWeapon(String weaponType){
-        switch(weaponType){
-            case("Axe"):
+        switch(weaponType.toUpperCase()){
+            case("AXE"):
                 return new Axe();
-            case("Bow"):
+            case("BOW"):
                 return new Bow();
-            case("Dagger"):
+            case("DAGGER"):
                 return new Dagger();
-            case("Sword"):
+            case("SWORD"):
                 return new Sword();
             default:
                 throw new InvalidParameterException("Cannot find weapon of entered type.");
@@ -79,13 +78,13 @@ public class BattleGame {
 
         // Loop giving each warrior a chance to attack and block each turn until 1 dies
         while(true){
-            if(getAttackResult(warrior1, warrior2).equals("Game Over")){
-                System.out.println("Game Over");
+            if(getAttackResult(warrior1, warrior2).equals(Constants.GAME_OVER_STR)){
+                System.out.println(Constants.GAME_OVER_STR);
                 break;
             }
 
-            if(getAttackResult(warrior2, warrior1).equals("Game Over")){
-                System.out.println("Game Over");
+            if(getAttackResult(warrior2, warrior1).equals(Constants.GAME_OVER_STR)){
+                System.out.println(Constants.GAME_OVER_STR);
                 break;
             }
 
@@ -113,9 +112,9 @@ public class BattleGame {
         a response that will end the loop*/
         if(warriorB.getHealth() <= 0){
             System.out.println(warriorB.getName() + " has died and " + warriorA.getName() + " is winner.");
-            return "Game Over";
+            return Constants.GAME_OVER_STR;
         }
-        return "Fight again";
+        return Constants.FIGHT_AGAIN_STR;
     }
 
 }

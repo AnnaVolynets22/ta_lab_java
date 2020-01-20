@@ -5,10 +5,10 @@ import java.util.Random;
 public abstract class Weapon implements WeaponBehavior {
     int maxAttacks;
     String name;
+    private Random rnd = new Random();
 
     @Override
     public int useWeapon() {
-        Random rnd = new Random();
         return rnd.nextInt(maxAttacks)+1;
     }
 

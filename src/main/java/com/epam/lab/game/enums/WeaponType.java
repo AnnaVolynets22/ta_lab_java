@@ -3,10 +3,10 @@ package com.epam.lab.game.enums;
 import java.util.Random;
 
 public enum WeaponType {
-    Axe,
-    Bow,
-    Dagger,
-    Sword;
+    AXE,
+    BOW,
+    DAGGER,
+    SWORD;
 
     public static WeaponType getRandomWeapon(){
         Random rnd = new Random();
