@@ -3,7 +3,7 @@ package com.epam.lab.game.weapons;
 import java.util.Random;
 
 public abstract class Weapon implements WeaponBehavior {
-    int maxAttacks;
+    int maxAttacks ;
     String name;
     private Random rnd = new Random();
 

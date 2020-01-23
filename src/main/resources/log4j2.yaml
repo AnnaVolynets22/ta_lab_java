@@ -1,0 +1,65 @@
+Configuration:
+  status: warn
+
+  appenders:
+    Console:
+      name: LogToConsole
+      PatternLayout:
+        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+
+    File:
+    - name: File
+      fileName: logs/logFile.log
+      PatternLayout:
+        Pattern: "%d %p %C{1.} [%t] %m%n"
+    - name: FileForWarning
+      fileName: logs/logFileforWarning.log
+      PatternLayout:
+        Pattern: "%d %p %C{1.} [%t] %m%n"
+      Filters:
+        ThresholdFilter:
+          level: warn
+          onMach: ACCEPT
+          onMismatch: DENY
+
+
+    RollingFile:
+      - name: LogToRollingFile
+        fileName: logs/LogToRollingFile.log
+        filePattern: "logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz"
+        PatternLayout:
+          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 1MB
+
+      - name: LogEveryDay
+        fileName: logs/LogEveryDay.log
+        filePattern: log/archive/LogEveryDay_old.log
+        PatternLayout:
+          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        CronTriggeringPolicy:
+          schedule: "0 0 12 ? * *"
+          evaluateOnStartup: true
+        DefaultRollOverStrategy:
+          max: 1
+
+  Loggers:
+    logger:
+      - name: com.epam.lab.logging
+        additivity: false
+        AppenderRef:
+          - ref: LogToConsole
+            level: info
+          - ref: LogToRollingFile
+            level: debug
+          - ref: LogEveryDay
+            level: info
+          - ref: FileForWarning
+            level: warn
+
+
+    Root:
+      level: all
+      AppenderRef:
+        ref: LogToConsole
