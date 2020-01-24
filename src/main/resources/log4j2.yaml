@@ -3,9 +3,10 @@ Configuration:
 
   appenders:
     Console:
-      name: LogToConsole
+      name: Console_Appender
       PatternLayout:
-        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        Pattern: "%highlight{%-5level}{FATAL=bg_red} %style{%date{yyyy-MM-dd
+                 HH:mm:ss.SSS}}{blue} %class{1}:%L - %highlight{%msg} %xEx{short}%n"
 
     File:
     - name: File
@@ -16,12 +17,6 @@ Configuration:
       fileName: logs/logFileforWarning.log
       PatternLayout:
         Pattern: "%d %p %C{1.} [%t] %m%n"
-      Filters:
-        ThresholdFilter:
-          level: warn
-          onMach: ACCEPT
-          onMismatch: DENY
-
 
     RollingFile:
       - name: LogToRollingFile
@@ -44,12 +39,13 @@ Configuration:
         DefaultRollOverStrategy:
           max: 1
 
+
   Loggers:
     logger:
       - name: com.epam.lab.logging
         additivity: false
         AppenderRef:
-          - ref: LogToConsole
+          - ref: Console_Appender
             level: info
           - ref: LogToRollingFile
             level: debug
@@ -62,4 +58,4 @@ Configuration:
     Root:
       level: all
       AppenderRef:
-        ref: LogToConsole
+        ref: Console_Appender
