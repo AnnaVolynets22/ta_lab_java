@@ -38,7 +38,20 @@ Configuration:
           evaluateOnStartup: true
         DefaultRollOverStrategy:
           max: 1
-
+    SMTP:
+      - name: MailAppender
+        subject: "Error Log"
+        to: "an.volinetz@gmail.com"
+        from: "an.volinetz@gmail.com"
+        smtpHost: "smtp.gmail.com"
+        smtpPort: 465
+        smtpProtocol: smtps
+        smtpUsername: "an.volinetz@gmail.com"
+        smtpPassword: "xxxx"
+        bufferSize: 512
+        HTMLLayout:
+        charset: "UTF-8"
+        title: "Logs from Pavelchak project 5_Log4Jf"
 
   Loggers:
     logger:
@@ -53,6 +66,8 @@ Configuration:
             level: info
           - ref: FileForWarning
             level: warn
+         # - ref: MailAppender
+         #  level: error
 
 
     Root:
