@@ -49,9 +49,9 @@ Configuration:
         smtpUsername: "an.volinetz@gmail.com"
         smtpPassword: "xxxx"
         bufferSize: 512
-        HTMLLayout:
-        charset: "UTF-8"
-        title: "Logs from Pavelchak project 5_Log4Jf"
+      #  HTMLLayout:
+      #  charset: "UTF-8"
+       # title: "Logs from Volynets project 5_Log4Jf"
 
   Loggers:
     logger:

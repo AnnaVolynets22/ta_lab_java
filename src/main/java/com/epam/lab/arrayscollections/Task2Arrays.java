@@ -37,6 +37,27 @@ public class Task2Arrays {
         return list;
     }
 
+    public static List<Integer> removeElementsThatRepeatMoreThan2Times(Integer[] array) {
+        List<Integer> arrList = new ArrayList<>(Arrays.asList(array));
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < array.length; ++i) {
+            int elem = array[i];
+            if (map.containsKey(elem)) {
+                map.put(elem, map.get(elem) + 1);
+            } else {
+                map.put(elem, 1);
+            }
+        }
+
+        for (Map.Entry<Integer, Integer> e : map.entrySet()) {
+            if (e.getValue() > 2) {
+                arrList.removeAll(Collections.singleton(Integer.valueOf(e.getKey())));
+            }
+        }
+        return arrList;
+
+    }
+
     public static void main(String[] args) {
         //A...Дано два масиви. Сформувати третій масив, що складається з тих елементів, які: а) присутні в обох масивах;
         // б) присутні тільки в одному з масивів.
@@ -51,11 +72,14 @@ public class Task2Arrays {
         uniqueElements.forEach(logger1::info);
 
         // B. Видалити в масиві всі числа, які повторюються більше двох разів.
+        Integer[] array3 = {1, 2, 2, 2, 5, 6, 7, 7, 9, 10};
+        logger1.info("Delete elements which repeat more than two times :");
+        removeElementsThatRepeatMoreThan2Times(array3).forEach(logger1::info);
 
         //C. Знайти в масиві всі серії однакових елементів, які йдуть підряд, і видалити з них всі елементи крім одного.
-        Integer[] array3 = {1, 2, 2, 2, 5, 6, 7, 7, 9, 10};
+
         logger1.info("Delete common :");
-        //deleteCommon(array3).forEach(logger1::info);
+
 
     }
 }
