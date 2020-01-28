@@ -1,6 +1,5 @@
 package com.epam.lab.arrayscollections;
 
-import com.epam.lab.logging.Application;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,76 +8,118 @@ import java.util.*;
 public class Task2Arrays {
     private static Logger logger1 = LogManager.getLogger(Task2Arrays.class);
 
-    public static List<Integer> findCommon(Integer[] array1, Integer[] array2) {
-        List<Integer> commonElemets = new ArrayList<>();
-        for (int i = 0; i < array1.length; i++) {
-            for (int j = 0; j < array2.length; j++) {
-                if (array1[i].equals(array2[j]) && !commonElemets.contains(array1[i])) {
-                    commonElemets.add(array1[i]);
+    public static int[] findCommon(int[] array1, int[] array2) {
+        int[] array3 = array1.length <= array2.length ? new int[array1.length] : new int[array2.length];
+        boolean zeroFlag = false;
+        if (array1.length <= array2.length) {
+            for (int i = 0; i < array1.length; i++) {
+                for (int j = 0; j < array2.length; j++) {
+                    if (array1[i] == (array2[j])) {
+                        array3[i] = array1[i];
+                        if(array1[i] == 0){
+                            zeroFlag = true;
+                        }
+
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < array2.length; i++) {
+                for (int j = 0; j < array1.length; j++) {
+                    if (array2[i] == (array1[j])) {
+                        array3[i] = array2[i];
+                        if(array1[i] == 0){
+                            zeroFlag = true;
+                        }
+                    }
                 }
             }
         }
-        return commonElemets;
+        return findUnique(array3, zeroFlag);
     }
 
-    public static List<Integer> findUnique(Integer[] array1, Integer[] array2) {
-        List<Integer> uniqueElements = new ArrayList<>();
-        Set<Integer> set = new HashSet<>();
-        set.addAll(Arrays.asList(array1));
-        set.addAll(Arrays.asList(array2));
-        set.removeAll(findCommon(array1, array2));
-        uniqueElements.addAll(set);
-        return uniqueElements;
-    }
-
-    public static List<Integer> deleteCommon(Integer[] array) {
-        List<Integer> list = new LinkedList<>(Arrays.asList(array));
-
-        return list;
-    }
-
-    public static List<Integer> removeElementsThatRepeatMoreThan2Times(Integer[] array) {
-        List<Integer> arrList = new ArrayList<>(Arrays.asList(array));
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < array.length; ++i) {
-            int elem = array[i];
-            if (map.containsKey(elem)) {
-                map.put(elem, map.get(elem) + 1);
+    public static int[] findUnique(int[] array, boolean zeroFlag) {
+        int[] arrayUnique = new int[array.length];
+        Boolean isEquval = false;
+        arrayUnique[0] = array[0];
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < arrayUnique.length; j++) {
+                if (array[i] == arrayUnique[j]) {
+                    isEquval = true;
+                    break;
+                }
+            }
+            if (!isEquval) {
+                arrayUnique[i] = array[i];
             } else {
-                map.put(elem, 1);
+                isEquval = false;
             }
         }
-
-        for (Map.Entry<Integer, Integer> e : map.entrySet()) {
-            if (e.getValue() > 2) {
-                arrList.removeAll(Collections.singleton(Integer.valueOf(e.getKey())));
-            }
+        if(zeroFlag){
+            return removeZeros1(arrayUnique);
+        }else{
+            return removeZeros(arrayUnique);
         }
-        return arrList;
 
     }
+
+    public static int[] removeZeros(int[] array) {
+        int targetIndex = 0;
+        for (int sourceIndex = 0; sourceIndex < array.length; sourceIndex++) {
+            if (array[sourceIndex] != 0)
+                array[targetIndex++] = array[sourceIndex];
+        }
+        int[] newArray = new int[targetIndex];
+        System.arraycopy(array, 0, newArray, 0, targetIndex);
+        return newArray;
+    }
+
+    public static int[] removeZeros1(int[] array) {
+        int targetIndex = 0;
+        for (int sourceIndex = 0; sourceIndex < array.length; sourceIndex++) {
+            if (array[sourceIndex] != 0)
+                array[targetIndex++] = array[sourceIndex];
+        }
+        int[] newArray = new int[targetIndex+1];
+        System.arraycopy(array, 0, newArray, 0, targetIndex+1);
+        return newArray;
+    }
+
+    public static int[] joinArrays(int[] array1, int[] array2){
+        int[] arrAll = new int [array1.length+array2.length];
+        System.arraycopy(array1, 0, arrAll, 0, array1.length);
+        System.arraycopy(array2, 0, arrAll, array1.length, array2.length);
+        return arrAll;
+    }
+
+    public static void print(int[] array){
+        logger1.info(java.util.Arrays.toString(array));
+    }
+
 
     public static void main(String[] args) {
         //A...Дано два масиви. Сформувати третій масив, що складається з тих елементів, які: а) присутні в обох масивах;
         // б) присутні тільки в одному з масивів.
-        Integer[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        Integer[] array2 = {6, 7, 8, 9, 10, 11, 12, 13, 14};
-        List<Integer> commonElemets;
-        commonElemets = findCommon(array1, array2);
-        logger1.info("Common elements:");
-        commonElemets.forEach(logger1::info);
-        List<Integer> uniqueElements = findUnique(array1, array2);
-        logger1.info("Unique elements:");
-        uniqueElements.forEach(logger1::info);
+        int[] array1 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10, 11};
+        int[] array2 = {6, 0, 7, 8, 9, 10, 7, 11, 11, 12, 13, 14};
+        logger1.info("Array 1:");
+        print(array1);
+        logger1.info("Array 2:");
+        print(array2);
+        //logger1.info("Common elements:");
+        //print(findCommon(array1, array2));
+
+        logger1.info("Array all:");
+        print(joinArrays(array1, array2));
 
         // B. Видалити в масиві всі числа, які повторюються більше двох разів.
-        Integer[] array3 = {1, 2, 2, 2, 5, 6, 7, 7, 9, 10};
-        logger1.info("Delete elements which repeat more than two times :");
-        removeElementsThatRepeatMoreThan2Times(array3).forEach(logger1::info);
+        // Integer[] array3 = {1, 2, 2, 2, 5, 6, 7, 7, 9, 10};
+        //logger1.info("Delete elements which repeat more than two times :");
+        // removeElementsThatRepeatMoreThan2Times(array3).forEach(logger1::info);
 
         //C. Знайти в масиві всі серії однакових елементів, які йдуть підряд, і видалити з них всі елементи крім одного.
 
-        logger1.info("Delete common :");
+        //logger1.info("Delete common :");
 
 
     }
