@@ -8,8 +8,8 @@ import java.util.*;
 public class Task2Arrays {
     private static Logger logger1 = LogManager.getLogger(Task2Arrays.class);
 
-    public static int[] findCommon(int[] array1, int[] array2) {
-        int[] array3 = array1.length <= array2.length ? new int[array1.length] : new int[array2.length];
+    public static int[] findCommon(int[] array1, int[] array2, int length) {
+        int[] array3 = new int[length];
         boolean zeroFlag = false;
         if (array1.length <= array2.length) {
             for (int i = 0; i < array1.length; i++) {
@@ -20,17 +20,6 @@ public class Task2Arrays {
                             zeroFlag = true;
                         }
 
-                    }
-                }
-            }
-        } else {
-            for (int i = 0; i < array2.length; i++) {
-                for (int j = 0; j < array1.length; j++) {
-                    if (array2[i] == (array1[j])) {
-                        array3[i] = array2[i];
-                        if(array1[i] == 0){
-                            zeroFlag = true;
-                        }
                     }
                 }
             }
@@ -135,8 +124,13 @@ public class Task2Arrays {
         print(array1);
         logger1.info("Array 2:");
         print(array2);
+        int length = array1.length <= array2.length ? array1.length: array2.length;
         logger1.info("Common elements:");
-        print(findCommon(array1, array2));
+        if(length == array1.length) {
+            print(findCommon(array1, array2, length));
+        }else {
+            print(findCommon(array2, array1, length));
+        }
 
         logger1.info("A...Дано два масиви. Сформувати третій масив, що складається з тих елементів, які: ");
         logger1.info("б) присутні тільки в одному з масивів.");
