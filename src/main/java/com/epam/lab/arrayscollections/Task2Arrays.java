@@ -63,6 +63,7 @@ public class Task2Arrays {
 
     }
 
+
     public static int[] removeZeros(int[] array) {
         int targetIndex = 0;
         for (int sourceIndex = 0; sourceIndex < array.length; sourceIndex++) {
@@ -92,35 +93,73 @@ public class Task2Arrays {
         return arrAll;
     }
 
+    public static int[] removeElemRepeatMoreThan2Times(int[] arr){
+        int[] newArr = new int [arr.length];
+        Arrays.sort(arr);
+        newArr[0] = arr[0];
+        newArr[1] = arr[1];
+        int j = 2;
+        for(int i =1; i<=arr.length-2; i++){
+            if (arr[i-1] != arr[i+1]) {
+                newArr[j] = arr[i+1];
+                j++;
+            }
+        }
+        return removeZeros(newArr);
+    }
+
+    public static int[] removeSameElementsLocatedOneAfterAnother(int[] arr){
+        int[] newArr = new int [arr.length];
+        newArr[0] = arr[0];
+        int j = 1;
+        for(int i =1; i<=arr.length-1; i++){
+            if (arr[i-1] != arr[i]) {
+                newArr[j] = arr[i];
+                j++;
+            }
+        }
+        return removeZeros(newArr);
+    }
+
     public static void print(int[] array){
         logger1.info(java.util.Arrays.toString(array));
     }
 
 
     public static void main(String[] args) {
-        //A...Дано два масиви. Сформувати третій масив, що складається з тих елементів, які: а) присутні в обох масивах;
-        // б) присутні тільки в одному з масивів.
+        logger1.info("A...Дано два масиви. Сформувати третій масив, що складається з тих елементів, які: ");
+        logger1.info("а) присутні в обох масивах;");
         int[] array1 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10, 11};
         int[] array2 = {6, 0, 7, 8, 9, 10, 7, 11, 11, 12, 13, 14};
         logger1.info("Array 1:");
         print(array1);
         logger1.info("Array 2:");
         print(array2);
-        //logger1.info("Common elements:");
-        //print(findCommon(array1, array2));
+        logger1.info("Common elements:");
+        print(findCommon(array1, array2));
 
-        logger1.info("Array all:");
-        print(joinArrays(array1, array2));
+        logger1.info("A...Дано два масиви. Сформувати третій масив, що складається з тих елементів, які: ");
+        logger1.info("б) присутні тільки в одному з масивів.");
 
-        // B. Видалити в масиві всі числа, які повторюються більше двох разів.
-        // Integer[] array3 = {1, 2, 2, 2, 5, 6, 7, 7, 9, 10};
-        //logger1.info("Delete elements which repeat more than two times :");
-        // removeElementsThatRepeatMoreThan2Times(array3).forEach(logger1::info);
+        //logger1.info("Array all:");
+        //print(joinArrays(array1, array2));
 
-        //C. Знайти в масиві всі серії однакових елементів, які йдуть підряд, і видалити з них всі елементи крім одного.
+        logger1.info("B. Видалити в масиві всі числа, які повторюються більше двох разів.");
+        logger1.info("Вхідний масив:");
+        int [] array3 = {1, 2, 2, 10, 2, 5, 6, 7, 7, 7, 7, 9, 10};
+        print(array3);
+        logger1.info("Вихідний масив:");
+        print(removeElemRepeatMoreThan2Times(array3));
 
-        //logger1.info("Delete common :");
 
+
+        logger1.info("C. Знайти в масиві всі серії однакових елементів, які йдуть підряд, " +
+                "і видалити з них всі елементи крім одного.");
+        int [] array4 = {1, 2, 2, 10, 2, 5, 6, 7, 7, 7, 7, 9, 10};
+        logger1.info("Вхідний масив:");
+        print(array4);
+        logger1.info("Вихідний масив:");
+        print(removeSameElementsLocatedOneAfterAnother(array4));
 
     }
 }
