@@ -1,4 +1,4 @@
-package com.epam.lab.arrayscollections1.stringcontainer;
+package com.epam.lab.arrayscollections1.stringcontainer4;
 
 import java.util.ArrayList;
 import java.util.List;
