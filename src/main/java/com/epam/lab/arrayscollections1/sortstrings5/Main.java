@@ -47,5 +47,14 @@ public class Main {
         MyStringComparator myStringComparator = new MyStringComparator();
         arrayList.sort(myStringComparator);
         arrayList.forEach(i-> logger1.info(i.print()));
+        Arrays.sort(myArr, myStringComparator);
+
+        logger1.info(("Sorted array by second string"));
+        for( MyString s:myArr) {
+            logger1.info(s.print());
+        }
+
+        int retVal = Arrays.binarySearch(myArr, austria, myStringComparator);
+        logger1.info("The index of element " + austria.print() +  " is :" + retVal);
     }
 }
