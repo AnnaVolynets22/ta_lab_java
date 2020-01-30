@@ -1,6 +1,5 @@
 package com.epam.lab.collections2.treemap;
 
-import com.epam.lab.arrayscollections.Task2Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

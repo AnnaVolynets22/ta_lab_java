@@ -1,4 +1,4 @@
-package com.epam.lab.arrayscollections.arraygame;
+package com.epam.lab.arrayscollections1.arraygame;
 
 public class Main {
     public static void main(String[] args){

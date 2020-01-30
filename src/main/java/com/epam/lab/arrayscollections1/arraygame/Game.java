@@ -1,4 +1,4 @@
-package com.epam.lab.arrayscollections.arraygame;
+package com.epam.lab.arrayscollections1.arraygame;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

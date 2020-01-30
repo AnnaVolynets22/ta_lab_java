@@ -1,9 +1,7 @@
-package com.epam.lab.arrayscollections;
+package com.epam.lab.arrayscollections1.arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.*;
 
 public class Task2Arrays {
     private static Logger logger1 = LogManager.getLogger(Task2Arrays.class);
