@@ -9,27 +9,43 @@ public class Task2Arrays {
     private static Logger logger1 = LogManager.getLogger(Task2Arrays.class);
 
     public static int[] findCommon(int[] array1, int[] array2, int length) {
-        int[] array3 = new int[length];
+        int[] arrayCommon = new int[length];
         boolean zeroFlag = false;
-        if (array1.length <= array2.length) {
-            for (int i = 0; i < array1.length; i++) {
-                for (int j = 0; j < array2.length; j++) {
-                    if (array1[i] == (array2[j])) {
-                        array3[i] = array1[i];
-                        if(array1[i] == 0){
-                            zeroFlag = true;
-                        }
-
+        for (int i = 0; i < array1.length; i++) {
+            for (int j = 0; j < array2.length; j++) {
+                if (array1[i] == (array2[j])) {
+                    arrayCommon[i] = array1[i];
+                    if (array1[i] == 0) {
+                        zeroFlag = true;
                     }
                 }
             }
         }
-        return findUnique(array3, zeroFlag);
+        return findUnique(arrayCommon, zeroFlag);
+    }
+
+    public static int[] findUniqueInArrays(int[] array1, int[] array2, int[] common) {
+        int[] arrayUnique;
+        arrayUnique = joinArrays(array1, array2);
+        boolean zeroFlag = false;
+        for (int i = 0; i < arrayUnique.length; i++) {
+            if(arrayUnique[i] ==0){zeroFlag = true;}
+            for (int j = 0; j < common.length; j++) {
+                if (arrayUnique[i] == common[j]) {
+                    arrayUnique[i] = 0;
+                    if (arrayUnique[i] == 0) {
+                        zeroFlag = false;
+                    }
+                }
+            }
+
+        }
+        return findUnique(arrayUnique, zeroFlag);
     }
 
     public static int[] findUnique(int[] array, boolean zeroFlag) {
         int[] arrayUnique = new int[array.length];
-        Boolean isEquval = false;
+        boolean isEquval = false;
         arrayUnique[0] = array[0];
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < arrayUnique.length; j++) {
@@ -64,21 +80,6 @@ public class Task2Arrays {
         return newArray;
     }
 
-    public static int[] removeElements(int[] array, int [] remove) {
-        int targetIndex = 0;
-        print(remove);
-        for (int sourceIndex = 0; sourceIndex < array.length; sourceIndex++) {
-            for(int j=0; j <remove.length; j++) {
-                if (array[sourceIndex] != remove[j])
-                    array[targetIndex++] = array[sourceIndex];
-                logger1.info(targetIndex++);
-            }
-        }
-        int[] newArray = new int[targetIndex];
-        System.arraycopy(array, 0, newArray, 0, targetIndex);
-        return newArray;
-    }
-
     public static int[] removeZeros1(int[] array) {
         int targetIndex = 0;
         for (int sourceIndex = 0; sourceIndex < array.length; sourceIndex++) {
@@ -97,30 +98,28 @@ public class Task2Arrays {
         return arrAll;
     }
 
-    public static int[] removeElemRepeatMoreThan2Times(int[] arr){
-        int[] newArr = new int [arr.length];
-        Arrays.sort(arr);
-        int j = 0;
-        if(arr[0] != arr[1]){
-            newArr[j] = arr[0];
-            j++;
-        }
-
-        if((arr[1] != arr[0]) && arr[1] !=arr[2]){
-            arr[j] = arr[1];
-            j++;
-        }
-
-        for(int i=2; i<arr.length-1; i++){
-            if ((arr[i-1] != arr[i+1]) && (arr[i] != arr[i-2])) {
-                newArr[j] = arr[i];
-                j++;
-            }
-            if((arr[arr.length-3]!= arr[arr.length-1])){
-                newArr[j] = arr[arr.length-1];
+    public static int[] removeRepeated(int[] arr){
+        int[] times = new int[arr.length];
+        boolean zeroFlag = false;
+        for(int i=0; i<arr.length; i++){
+            for(int j=0; j<arr.length; j++){
+                if(arr[i] == arr[j]){
+                    times[i]++;
+                }
             }
         }
-        return removeZeros(newArr);
+        for (int i=0; i< arr.length; i++){
+            if(times[i]>2){
+                arr[i] = 0;
+            } else if(arr[i] ==0){
+                zeroFlag = true;
+            }
+        }
+        if(zeroFlag){
+            return removeZeros1(arr);
+        }else{
+            return removeZeros(arr);
+        }
     }
 
     public static int[] removeSameElementsLocatedOneAfterAnother(int[] arr){
@@ -144,38 +143,34 @@ public class Task2Arrays {
     public static void main(String[] args) {
         logger1.info("A...Дано два масиви. Сформувати третій масив, що складається з тих елементів, які: ");
         logger1.info("а) присутні в обох масивах;");
-        int[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10, 11};
-        int[] array2 = {6, 0, 7, 8, 9, 10, 7, 11, 12, 13, 14};
+        int[] array1 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10, 11};
+        int[] array2 = {6, 0, 7, 8, 9, 10, 7, 11, 11, 12, 13, 14};
         logger1.info("Array 1:");
         print(array1);
         logger1.info("Array 2:");
         print(array2);
         int length = array1.length <= array2.length ? array1.length: array2.length;
+        int[] common;
         logger1.info("Common elements:");
-        int [] common;
         if(length == array1.length) {
             common = findCommon(array1, array2, length);
+            print(common);
         }else {
             common = findCommon(array2, array1, length);
+            print(common);
         }
-        print(common);
 
         logger1.info("A...Дано два масиви. Сформувати третій масив, що складається з тих елементів, які: ");
         logger1.info("б) присутні тільки в одному з масивів.");
-        logger1.info("Array 1:");
-        print(array1);
-        logger1.info("Array 2:");
-        print(array2);
-        logger1.info("Array all:");
-        print(joinArrays(array1, array2));
-        print(removeElements(joinArrays(array1, array2), common));
+
+        print(findUniqueInArrays(array1, array2, common));
 
         logger1.info("B. Видалити в масиві всі числа, які повторюються більше двох разів.");
         logger1.info("Вхідний масив:");
-        int [] array3 = {1, 2, 2, 10, 2, 5, 6, 7, 7, 9, 10};
+        int [] array3 = {1, 2, 2, 10, 2, 5, 6, 7, 7, 7, 7, 9, 10};
         print(array3);
         logger1.info("Вихідний масив:");
-        print(removeElemRepeatMoreThan2Times(array3));
+        print(removeRepeated(array3));
 
 
 
