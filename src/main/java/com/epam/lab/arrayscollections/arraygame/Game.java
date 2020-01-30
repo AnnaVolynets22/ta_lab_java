@@ -3,7 +3,6 @@ package com.epam.lab.arrayscollections.arraygame;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
@@ -25,8 +24,8 @@ public class Game {
             return ThreadLocalRandom.current().nextInt(GameConstants.ARTEFACT_LOWER_POWER,
                     GameConstants.ARTEFACT_HIGHER_POWER+ 1);
         } else{
-            return -1*ThreadLocalRandom.current().nextInt(GameConstants.ARTEFACT_LOWER_POWER,
-                    GameConstants.ARTEFACT_HIGHER_POWER+ 1);
+            return -1*ThreadLocalRandom.current().nextInt(GameConstants.MONSTER_LOWER_POWER,
+                    GameConstants.MONSTER_HIGHER_POWER+ 1);
         }
     }
 
@@ -61,15 +60,17 @@ public class Game {
 
     public void findDorCombination(){
         int monsterPower = 0;
-        String monsterDoors = "";
-        String artifactsDoors = " ";
+        StringBuilder monsterDoors = new StringBuilder();
+        StringBuilder artifactsDoors = new StringBuilder();
         for(int i=0; i<doors.length; i++){
             if(doors[i]<0){
                 monsterPower += -1*doors[i];
-                monsterDoors += " " + (i+1);
+                monsterDoors.append(" ");
+                monsterDoors.append(i+1);
             } else {
                 playerPower += doors[i];
-                artifactsDoors +=" " + (i+1);
+                artifactsDoors.append( " ");
+                artifactsDoors.append(i+1);
             }
         }
 
@@ -77,7 +78,7 @@ public class Game {
             logger1.info("You won't win:(");
         } else {
             logger1.info(" To win you need to open doors in the following sequence:");
-            logger1.info(artifactsDoors+monsterDoors);
+            logger1.info(artifactsDoors.append(monsterDoors));
         }
     }
 
