@@ -1,181 +1,212 @@
 package com.epam.lab.arrayscollections1.deque;
 
+import org.apache.logging.log4j.core.util.ArrayUtils;
+
 import java.util.*;
 
-public class MyDeque implements Deque {
+public class MyDeque {
     private Object[] deque = new Object[1];
+    private int elemCount = 0;
 
-    @Override
     public void addFirst(Object o) {
+        Object[] newArray = new Object[deque.length +1];
+        System.arraycopy(deque, 0, newArray, 1, deque.length);
+        deque = newArray;
+        deque[0] = o;
+        elemCount++;
     };
 
-    @Override
     public void addLast(Object o) {
-
+        if(elemCount!=0){
+        Object[] newArray = new Object[deque.length +1 ];
+        System.arraycopy(deque, 0, newArray, 0, deque.length);
+        deque = newArray;
+        deque[deque.length-1] = o;
+        } else {
+            deque[0] = o;
+        }
+        elemCount++;
     }
 
-    @Override
     public boolean offerFirst(Object o) {
-        return false;
+        try{
+            addFirst(o);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
-    @Override
     public boolean offerLast(Object o) {
-        return false;
+        try{
+            addLast(o);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
-    @Override
     public Object removeFirst() {
-        return null;
+        if(elemCount==0){
+            throw new NoSuchElementException();
+        } else {
+            Object[] newArray = new Object[deque.length - 1];
+            Object firstElem = deque[0];
+            System.arraycopy(deque, 1, newArray, 0, deque.length - 1);
+            deque = newArray;
+            elemCount--;
+            return firstElem;
+        }
     }
 
-    @Override
     public Object removeLast() {
-        return null;
+        if(elemCount==0){
+            throw new NoSuchElementException();
+        } else {
+            Object[] newArray = new Object[deque.length - 1];
+            Object lastElem = deque[deque.length - 1];
+            System.arraycopy(deque, 0, newArray, 0, deque.length - 1);
+            deque = newArray;
+            elemCount--;
+            return lastElem;
+        }
     }
 
-    @Override
     public Object pollFirst() {
-        return null;
+        if(elemCount==0){
+            return null;
+        } else {
+            Object[] newArray = new Object[deque.length - 1];
+            Object firstElem = deque[0];
+            System.arraycopy(deque, 1, newArray, 0, deque.length - 1);
+            deque = newArray;
+            elemCount--;
+            return firstElem;
+        }
     }
 
-    @Override
     public Object pollLast() {
-        return null;
+        if(elemCount==0){
+            return null;
+        } else {
+            Object[] newArray = new Object[deque.length - 1];
+            Object lastElem = deque[deque.length - 1];
+            System.arraycopy(deque, 0, newArray, 0, deque.length - 1);
+            deque = newArray;
+            elemCount--;
+            return lastElem;
+        }
     }
 
-    @Override
     public Object getFirst() {
-        return null;
+        if(elemCount == 0){
+            throw new NoSuchElementException();
+        }
+        return deque[0];
     }
 
-    @Override
     public Object getLast() {
-        return null;
+        if(elemCount == 0){
+            throw new NoSuchElementException();
+        }
+        return deque[deque.length-1];
     }
 
-    @Override
     public Object peekFirst() {
-        return null;
+        if(elemCount == 0){
+            return null;
+        }
+        return deque[0];
     }
 
-    @Override
     public Object peekLast() {
-        return null;
+        if(elemCount == 0){
+            return null;
+        }
+        return deque[deque.length-1];
     }
 
-    @Override
     public boolean removeFirstOccurrence(Object o) {
+        for(int i =0; i< deque.length; i++){
+            if (o.equals(deque[i])){
+                deque = ArrayUtils.remove(deque, i);
+                elemCount--;
+                return true;
+            }
+        }
         return false;
     }
 
-    @Override
     public boolean removeLastOccurrence(Object o) {
+        for(int i =deque.length -1; i >= 0; i--){
+            if (o.equals(deque[i])){
+                deque = ArrayUtils.remove(deque, i);
+                elemCount--;
+                return true;
+            }
+        }
         return false;
     }
 
-    @Override
     public boolean add(Object o) {
-        return false;
+        addLast(o);
+        return true;
     }
 
-    @Override
     public boolean offer(Object o) {
-        return false;
+        try{
+            addLast(o);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
-    @Override
     public Object remove() {
-        return null;
+        return removeFirst();
     }
 
-    @Override
     public Object poll() {
-        return null;
+        return pollFirst();
     }
 
-    @Override
     public Object element() {
-        return null;
+        return getFirst();
     }
 
-    @Override
     public Object peek() {
-        return null;
+        return peekFirst();
     }
 
-    @Override
-    public boolean addAll(Collection collection) {
-        return false;
-    }
-
-    @Override
-    public void clear() {
-
-    }
-
-    @Override
-    public boolean retainAll(Collection collection) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection collection) {
-        return false;
-    }
-
-    @Override
     public void push(Object o) {
-
+       addFirst(o);
     }
 
-    @Override
     public Object pop() {
-        return null;
+        return removeFirst();
     }
 
-    @Override
     public boolean remove(Object o) {
-        return false;
+        return removeFirstOccurrence(o);
     }
 
-    @Override
-    public boolean containsAll(Collection collection) {
-        return false;
-    }
-
-    @Override
-    public boolean contains(Object o) {
-        return false;
-    }
-
-    @Override
     public int size() {
-        return 0;
+        return deque.length;
     }
 
-    @Override
     public boolean isEmpty() {
-        return false;
+        if(elemCount == 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    @Override
-    public Iterator iterator() {
-        return null;
-    }
-
-    @Override
     public Object[] toArray() {
-        return new Object[0];
+        return deque;
     }
 
-    @Override
-    public Object[] toArray(Object[] objects) {
-        return new Object[0];
-    }
-
-    @Override
-    public Iterator descendingIterator() {
-        return null;
+    public String toString() {
+        return Arrays.toString(deque);
     }
 }
