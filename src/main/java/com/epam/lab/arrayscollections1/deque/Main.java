@@ -1,6 +1,5 @@
 package com.epam.lab.arrayscollections1.deque;
 
-import com.epam.lab.logging.Application;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,9 +15,12 @@ public class Main {
         myDeque.addLast(17);
         myDeque.addFirst(100);
         logger1.info(myDeque);
-        /*myDeque.removeFirst();
+        logger1.info("remove first " );
+        myDeque.removeFirst();
+        logger1.info(myDeque);
+        logger1.info("remove last " );
         myDeque.removeLast();
-        logger1.info(myDeque);*/
+        logger1.info(myDeque);
         logger1.info("remove first occurrence of " + 4);
         myDeque.removeFirstOccurrence(4);
         logger1.info(myDeque);
