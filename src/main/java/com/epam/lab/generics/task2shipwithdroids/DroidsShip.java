@@ -1,4 +1,4 @@
-package com.epam.lab.generics;
+package com.epam.lab.generics.task2shipwithdroids;
 
 import java.util.ArrayList;
 import java.util.List;

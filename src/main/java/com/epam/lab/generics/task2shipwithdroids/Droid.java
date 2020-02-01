@@ -1,4 +1,4 @@
-package com.epam.lab.generics;
+package com.epam.lab.generics.task2shipwithdroids;
 
 public class Droid{
     private String name;
