@@ -1,6 +1,5 @@
 package com.epam.lab.generics.task4;
 
-import com.epam.lab.logging.Application;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +16,6 @@ public class StringInteger {
     public static void main(String[] args) {
         List<Integer> myIntegerList = new ArrayList<>();
         addToList(myIntegerList);
-        System.out.println(myIntegerList.get(0));;
+        logger1.info(myIntegerList.get(0));;
     }
 }
