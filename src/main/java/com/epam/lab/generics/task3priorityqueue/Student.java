@@ -1,6 +1,6 @@
 package com.epam.lab.generics.task3priorityqueue;
 
-class Student {
+class Student implements Comparable<Student>{
     private String name;
     private double mark;
 
@@ -21,5 +21,10 @@ class Student {
     @Override
     public String toString() {
         return name + " " + mark;
+    }
+
+    @Override
+    public int compareTo(Student student) {
+        return this.getName().compareTo(student.getName());
     }
 }

@@ -4,7 +4,7 @@ import org.apache.logging.log4j.core.util.ArrayUtils;
 
 import java.util.*;
 
-public class MyPriorityQueue<T> extends AbstractQueue implements Queue {
+public class MyPriorityQueue<T extends Comparable<T>> extends AbstractQueue implements Queue {
 
     private T[] queue;
     private int size = 0;
@@ -12,11 +12,11 @@ public class MyPriorityQueue<T> extends AbstractQueue implements Queue {
     private Comparator<? super T> comparator;
 
     public MyPriorityQueue(){
-        queue = (T[]) new Object[capacity];
+        queue = (T[]) new Comparable[capacity];
     }
 
     public MyPriorityQueue(int capacity, Comparator comparator){
-        queue = (T[]) new Object[capacity];
+        queue = (T[]) new Comparable[capacity];
         this.comparator = comparator;
     }
 
@@ -43,7 +43,7 @@ public class MyPriorityQueue<T> extends AbstractQueue implements Queue {
         if(comparator != null){
             sortWithComparator((T) o);
         } else {
-            queue[size] = (T)o;
+            sort((T)o);
         }
         size++;
         return true;
@@ -70,6 +70,18 @@ public class MyPriorityQueue<T> extends AbstractQueue implements Queue {
             return queue[0];
         }
 
+    }
+    private void sort(T o) {
+        int i = 0;
+        while (i < size) {
+            if (o.compareTo((T) queue[i]) >= 0) {
+                ++i;
+            } else {
+                break;
+            }
+        }
+        System.arraycopy(queue, i, queue, i + 1, size - i);
+        queue[i] = o;
     }
 
     private void sortWithComparator(T o) {
