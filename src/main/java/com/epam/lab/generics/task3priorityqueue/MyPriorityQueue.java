@@ -1,98 +1,107 @@
 package com.epam.lab.generics.task3priorityqueue;
 
-import java.util.AbstractCollection;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Queue;
+import org.apache.logging.log4j.core.util.ArrayUtils;
 
-public class MyPriorityQueue<T> extends AbstractCollection implements Queue {
+import java.util.*;
+
+public class MyPriorityQueue<T> extends AbstractQueue implements Queue {
+
+    private T[] queue;
+    private int size = 0;
+    private int capacity = 11;
+    private Comparator<? super T> comparator;
+
+    public MyPriorityQueue(){
+        queue = (T[]) new Object[capacity];
+    }
+
+    public MyPriorityQueue(int capacity, Comparator comparator){
+        queue = (T[]) new Object[capacity];
+        this.comparator = comparator;
+    }
+
+
     @Override
     public int size() {
-        return 0;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean contains(Object o) {
-        return false;
-    }
-
-    @Override
-    public Iterator iterator() {
-        return null;
-    }
-
-    @Override
-    public Object[] toArray() {
-        return new Object[0];
-    }
-
-    @Override
-    public Object[] toArray(Object[] objects) {
-        return new Object[0];
+        return queue.length;
     }
 
     @Override
     public boolean add(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection collection) {
-        return false;
-    }
-
-    @Override
-    public void clear() {
-
-    }
-
-    @Override
-    public boolean retainAll(Collection collection) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection collection) {
-        return false;
-    }
-
-    @Override
-    public boolean containsAll(Collection collection) {
-        return false;
+        return offer(o);
     }
 
     @Override
     public boolean offer(Object o) {
-        return false;
-    }
-
-    @Override
-    public Object remove() {
-        return null;
+        if (o == null) {
+            throw new NullPointerException();
+        }
+        if(size >= capacity){
+            capacity *=2;
+            queue = Arrays.copyOf(queue, capacity);
+        }
+        if(comparator != null){
+            sortWithComparator((T) o);
+        } else {
+            queue[size] = (T)o;
+        }
+        size++;
+        return true;
     }
 
     @Override
     public Object poll() {
-        return null;
-    }
+        if(size == 0){
+            return null;
+        } else {
+            Object heap = queue[0];
+            queue = ArrayUtils.remove(queue, 0);
+            size--;
+            return heap;
+        }
 
-    @Override
-    public Object element() {
-        return null;
     }
 
     @Override
     public Object peek() {
-        return null;
+        if(size == 0){
+            return null;
+        } else {
+            return queue[0];
+        }
+
+    }
+
+    private void sortWithComparator(T o) {
+        int i = 0;
+        while (i < size) {
+            if (comparator.compare(o, (T) queue[i]) >= 0) {
+                ++i;
+            } else {
+                break;
+            }
+        }
+        System.arraycopy(queue, i, queue, i + 1, size - i);
+        queue[i] = o;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new MyIterator();
+    }
+
+    private class MyIterator<T> implements Iterator<T> {
+        private int currentIndex = 0;
+
+        public boolean hasNext() {
+            return currentIndex < size || queue[currentIndex] != null;
+        }
+
+        public T next() {
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            }
+            return (T) queue[currentIndex++];
+        }
     }
 }
