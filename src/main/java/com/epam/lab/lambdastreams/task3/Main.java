@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
-    private static Logger logger = LogManager.getLogger(com.epam.lab.lambdastreams.task2.Main.class);
+    private static Logger logger = LogManager.getLogger(Main.class);
 
     public static List<Integer> generateRandomList(int lowRange, int upperRange, int limit) {
         IntStream stream = new Random().ints(limit, lowRange, upperRange);
