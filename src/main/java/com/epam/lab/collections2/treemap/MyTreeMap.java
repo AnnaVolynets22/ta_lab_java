@@ -2,153 +2,112 @@ package com.epam.lab.collections2.treemap;
 
 import java.util.*;
 
-public class MyTreeMap<K, V> extends AbstractMap implements NavigableMap {
+public class MyTreeMap<K extends Comparable, V> extends AbstractMap<K,V> implements Map.Entry {
+   private List<MyEntry> map;
+   private Comparator<? super K> comparator;
 
-    private AbstractMap<K, V> map;
+   public MyTreeMap(){
+       map = new ArrayList<>();
+   }
 
-    @Override
-    public Object put(Object key, Object value) {
-        return super.put(key, value);
+    public MyTreeMap(Comparator comparator){
+        map = new ArrayList<>();
+        this.comparator = comparator;
     }
 
     @Override
-    public Object get(Object key) {
-        return super.get(key);
+    public int size() {
+        return map.size();
     }
 
     @Override
-    public Object remove(Object key) {
+    public boolean isEmpty() {
+        return map.isEmpty();
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        return false;
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        return false;
+    }
+
+    @Override
+    public V put(K key, V value) {
+        MyEntry<K, V> myEntry = new MyEntry<>(key, value);
+        map.add(myEntry);
+        return value;
+    }
+
+    @Override
+    public V remove(Object key) {
         return super.remove(key);
     }
 
-    public void print(){
-
+    @Override
+    public void putAll(Map m) {
+        super.putAll(m);
     }
 
     @Override
-    public Set<Entry> entrySet() {
+    public void clear() {
+        super.clear();
+    }
+
+    @Override
+    public Set keySet() {
+        return super.keySet();
+    }
+
+    @Override
+    public Collection values() {
+        return super.values();
+    }
+
+    @Override
+    public Set<Entry<K,V>> entrySet() {
         return null;
     }
 
     @Override
-    public Entry lowerEntry(Object o) {
+    public Object getKey() {
         return null;
     }
 
     @Override
-    public Object lowerKey(Object o) {
+    public Object getValue() {
         return null;
     }
 
     @Override
-    public Entry floorEntry(Object o) {
+    public Object setValue(Object o) {
         return null;
     }
 
     @Override
-    public Object floorKey(Object o) {
-        return null;
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
 
     @Override
-    public Entry ceilingEntry(Object o) {
-        return null;
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override
-    public Object ceilingKey(Object o) {
-        return null;
+    public String toString() {
+       String mapString = "";
+       for(MyEntry entry: map){
+           mapString += entry.toString() + " ";
+       }
+       return mapString;
     }
 
     @Override
-    public Entry higherEntry(Object o) {
-        return null;
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
-
-    @Override
-    public Object higherKey(Object o) {
-        return null;
-    }
-
-    @Override
-    public Entry firstEntry() {
-        return null;
-    }
-
-    @Override
-    public Entry lastEntry() {
-        return null;
-    }
-
-    @Override
-    public Entry pollFirstEntry() {
-        return null;
-    }
-
-    @Override
-    public Entry pollLastEntry() {
-        return null;
-    }
-
-    @Override
-    public NavigableMap descendingMap() {
-        return null;
-    }
-
-    @Override
-    public NavigableSet navigableKeySet() {
-        return null;
-    }
-
-    @Override
-    public NavigableSet descendingKeySet() {
-        return null;
-    }
-
-    @Override
-    public NavigableMap subMap(Object o, boolean b, Object k1, boolean b1) {
-        return null;
-    }
-
-    @Override
-    public NavigableMap headMap(Object o, boolean b) {
-        return null;
-    }
-
-    @Override
-    public NavigableMap tailMap(Object o, boolean b) {
-        return null;
-    }
-
-    @Override
-    public Comparator comparator() {
-        return null;
-    }
-
-    @Override
-    public SortedMap subMap(Object o, Object k1) {
-        return null;
-    }
-
-    @Override
-    public SortedMap headMap(Object o) {
-        return null;
-    }
-
-    @Override
-    public SortedMap tailMap(Object o) {
-        return null;
-    }
-
-    @Override
-    public Object firstKey() {
-        return null;
-    }
-
-    @Override
-    public Object lastKey() {
-        return null;
-    }
-
-
 }
