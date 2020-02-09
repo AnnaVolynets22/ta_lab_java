@@ -1,4 +1,4 @@
-package com.epam.lab.stringshw.tasks;
+package com.epam.lab.stringshw.tasks1_2_3;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
