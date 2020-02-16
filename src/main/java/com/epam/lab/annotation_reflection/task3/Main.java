@@ -1,7 +1,6 @@
-package com.epam.lab.annotation_reflection.task2;
+package com.epam.lab.annotation_reflection.task3;
 
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -13,7 +12,7 @@ public class Main {
             Method method = ca.getDeclaredMethod("printValue");
             String printDefaultValue = (String) method.getDefaultValue();
             System.out.println(printDefaultValue);
-            
+
             Object classValue = method.invoke(Main.class.getAnnotation(ca), (Object[]) null);
             System.out.println(classValue);
 

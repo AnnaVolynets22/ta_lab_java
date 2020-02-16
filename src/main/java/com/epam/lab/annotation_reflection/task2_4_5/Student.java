@@ -1,4 +1,4 @@
-package com.epam.lab.annotation_reflection.task1;
+package com.epam.lab.annotation_reflection.task2_4_5;
 
 
 public class Student {

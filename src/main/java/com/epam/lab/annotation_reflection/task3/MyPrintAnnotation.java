@@ -1,4 +1,4 @@
-package com.epam.lab.annotation_reflection.task2;
+package com.epam.lab.annotation_reflection.task3;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
