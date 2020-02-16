@@ -5,5 +5,5 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyPrintAnnotation {
-    String printValue() default "Annotation value";
+    String printValue() default "Annotation default value";
 }
