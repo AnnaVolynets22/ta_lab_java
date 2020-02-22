@@ -1,4 +1,4 @@
-package com.epam.lab.iohw.task5readcomments;
+package com.epam.lab.iohw.task6directory;
 
 import com.epam.lab.iohw.PropertiesUtils;
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +10,7 @@ public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException {
-        String filePath = PropertiesUtils.getProperty("javaFilePath");
-        Utils.printAllComments(filePath);
+        String dirName = PropertiesUtils.getProperty("dirPath");
+        CommandLineUtils.displayContentOfDirectory(dirName);
     }
 }
