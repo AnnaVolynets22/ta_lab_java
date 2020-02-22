@@ -1,4 +1,4 @@
-package com.epam.lab.iohw.task1;
+package com.epam.lab.iohw.task1serialization;
 
 public class DroidClass2 extends Droid {
     private transient int power;

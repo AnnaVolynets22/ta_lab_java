@@ -1,4 +1,4 @@
-package com.epam.lab.iohw.task1;
+package com.epam.lab.iohw.task1serialization;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
