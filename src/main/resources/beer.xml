@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="beer.xsl"?>
+
+<Beers>
+    <beer beerId="123">
+        <name>Corona</name>
+        <type>BLACK</type>
+        <AI>true</AI>
+        <manufacturer>Corona manufacturer</manufacturer>
+        <ingredients>
+            <ingredient>Water</ingredient>
+            <ingredient>Sugar</ingredient>
+            <ingredient>Malted barley</ingredient>
+        </ingredients>
+        <chars>
+            <alcoholVolume>14</alcoholVolume>
+            <transparency>12.5</transparency>
+            <filter>false</filter>
+            <foodValue>123</foodValue>
+            <pouringMethod>
+                <volume>0.5</volume>
+                <material>Plastic</material>
+            </pouringMethod>
+        </chars>
+    </beer>
+    <beer beerId="456">
+        <name>Baltyka</name>
+        <type>LIGHT</type>
+        <AI>true</AI>
+        <manufacturer>Baltyka manufacturer</manufacturer>
+        <ingredients>
+            <ingredient>Water</ingredient>
+            <ingredient>Sugar</ingredient>
+            <ingredient>Malted barley</ingredient>
+        </ingredients>
+        <chars>
+            <alcoholVolume>12</alcoholVolume>
+            <transparency>14.5</transparency>
+            <filter>true</filter>
+            <foodValue>123</foodValue>
+            <pouringMethod>
+                <volume>0.5</volume>
+                <material>Glass</material>
+            </pouringMethod>
+        </chars>
+    </beer>
+
+</Beers>
