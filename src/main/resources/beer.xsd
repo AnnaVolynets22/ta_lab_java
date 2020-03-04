@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Beers" type="BeersType"/>
+  <xs:complexType name="ingredientsType">
+    <xs:sequence>
+      <xs:element name="ingredient" maxOccurs="unbounded" minOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Water"/>
+            <xs:enumeration value="Sugar"/>
+            <xs:enumeration value="Malted barley"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pouringMethodType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="volume"/>
+      <xs:element name="material">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Plastic"/>
+            <xs:enumeration value="Glass"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="charsType">
+    <xs:sequence>
+      <xs:element name="alcoholVolume">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="14"/>
+            <xs:enumeration value="12"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="transparency">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="12.5"/>
+            <xs:enumeration value="14.5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="filter">
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="foodValue"/>
+      <xs:element type="pouringMethodType" name="pouringMethod"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="beerType">
+    <xs:sequence>
+      <xs:element name="name">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Corona"/>
+            <xs:enumeration value="Baltyka"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="type">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="BLACK"/>
+            <xs:enumeration value="LIGHT"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:boolean" name="AI"/>
+      <xs:element name="manufacturer">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Corona manufacturer"/>
+            <xs:enumeration value="Baltyka manufacturer"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="ingredientsType" name="ingredients"/>
+      <xs:element type="charsType" name="chars"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="beerId" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="BeersType">
+    <xs:sequence>
+      <xs:element type="beerType" name="beer" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
