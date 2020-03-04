@@ -1,7 +1,7 @@
-package com.epam.lab.xml;
+package com.epam.lab.xml_json;
 
-import com.epam.lab.xml.models.Beer;
-import com.epam.lab.xml.parsers.BeerDOMParser;
+import com.epam.lab.xml_json.models.Beer;
+import com.epam.lab.xml_json.parsers.BeerDOMParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

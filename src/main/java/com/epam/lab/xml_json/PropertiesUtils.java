@@ -1,4 +1,4 @@
-package com.epam.lab.xml;
+package com.epam.lab.xml_json;
 
 import java.io.IOException;
 import java.io.InputStream;

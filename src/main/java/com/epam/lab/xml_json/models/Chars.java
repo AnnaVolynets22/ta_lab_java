@@ -1,4 +1,4 @@
-package com.epam.lab.xml.models;
+package com.epam.lab.xml_json.models;
 
 public class Chars {
     private double alcoholVolume;

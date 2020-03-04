@@ -1,9 +1,9 @@
-package com.epam.lab.xml.parsers;
+package com.epam.lab.xml_json.parsers;
 
-import com.epam.lab.xml.models.Beer;
-import com.epam.lab.xml.models.Chars;
-import com.epam.lab.xml.models.PouringMethod;
-import com.epam.lab.xml.models.Type;
+import com.epam.lab.xml_json.models.Beer;
+import com.epam.lab.xml_json.models.Chars;
+import com.epam.lab.xml_json.models.PouringMethod;
+import com.epam.lab.xml_json.models.Type;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

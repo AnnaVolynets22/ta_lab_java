@@ -1,0 +1,46 @@
+[
+  {
+    "@beerId": "123",
+    "name": "Corona",
+    "type": "BLACK",
+    "AI": "true",
+    "manufacturer": "Corona manufacturer",
+    "ingredients": [
+      "Water",
+      "Sugar",
+      "Malted barley"
+    ],
+    "chars": {
+      "alcoholVolume": "14",
+      "transparency": "12.5",
+      "filter": "false",
+      "foodValue": "123",
+      "pouringMethod": {
+        "volume": "0.5",
+        "material": "Plastic"
+      }
+    }
+  },
+  {
+    "@beerId": "456",
+    "name": "Baltyka",
+    "type": "LIGHT",
+    "AI": "true",
+    "manufacturer": "Baltyka manufacturer",
+    "ingredients": [
+      "Water",
+      "Sugar",
+      "Malted barley"
+    ],
+    "chars": {
+      "alcoholVolume": "12",
+      "transparency": "14.5",
+      "filter": "true",
+      "foodValue": "123",
+      "pouringMethod": {
+        "volume": "0.5",
+        "material": "Glass"
+      }
+    }
+  }
+]

@@ -1,4 +1,4 @@
-package com.epam.lab.xml.models;
+package com.epam.lab.xml_json.models;
 
 import java.util.ArrayList;
 import java.util.List;
