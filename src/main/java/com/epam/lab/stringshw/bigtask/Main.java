@@ -1,5 +1,9 @@
 package com.epam.lab.stringshw.bigtask;
 
+import com.epam.lab.stringshw.bigtask.models.Text;
+import com.epam.lab.stringshw.bigtask.utils.Const;
+import com.epam.lab.stringshw.bigtask.utils.PropertyUtils;
+import com.epam.lab.stringshw.bigtask.utils.Readers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,30 +17,9 @@ import java.util.List;
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
-    public static List<String> readFileInList(String fileName) {
-        List<String> lines = Collections.emptyList();
-        try {
-            lines = Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return lines;
-    }
+    public static void main(String[] args) throws IOException {
+        String fileName = PropertyUtils.getProperty("file_path");
+        Text text = new Text(Readers.readFileAsString(fileName));
 
-    public static String readFileAsString(String fileName){
-        String data = "";
-        try {
-            data = new String(Files.readAllBytes(Paths.get(fileName)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
-
-    public static void main(String[] args) {
-        String fileName = "C:\\ta_lab_java\\src\\main\\java\\com\\epam\\lab\\stringshw\\bigtask\\test";
-        String allText = readFileAsString(fileName);
-        allText = allText.replaceAll("\\s{2,}", " ").trim();
-        logger.info(allText);
     }
 }
