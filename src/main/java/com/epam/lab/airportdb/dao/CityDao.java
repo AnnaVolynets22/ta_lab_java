@@ -2,12 +2,14 @@ package com.epam.lab.airportdb.dao;
 
 import com.epam.lab.airportdb.model.City;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public class CityDao implements Dao<City> {
+
     @Override
-    public Optional<City> get(long id) {
+    public Optional<City> get(String id) throws SQLException {
         return Optional.empty();
     }
 
@@ -17,17 +19,19 @@ public class CityDao implements Dao<City> {
     }
 
     @Override
-    public void save(City city) {
+    public int create(City city) {
 
+        return 0;
     }
 
     @Override
-    public void update(City city, String[] params) {
-
+    public int update(City city) throws SQLException {
+        return 0;
     }
 
     @Override
-    public void delete(City city) {
+    public int delete(City city) {
 
+        return 0;
     }
 }

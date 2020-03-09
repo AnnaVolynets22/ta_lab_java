@@ -2,12 +2,14 @@ package com.epam.lab.airportdb.dao;
 
 import com.epam.lab.airportdb.model.ContactDetails;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public class ContactDetailsDao implements Dao<ContactDetails> {
+
     @Override
-    public Optional<ContactDetails> get(long id) {
+    public Optional<ContactDetails> get(String id) throws SQLException {
         return Optional.empty();
     }
 
@@ -17,17 +19,20 @@ public class ContactDetailsDao implements Dao<ContactDetails> {
     }
 
     @Override
-    public void save(ContactDetails contactDetails) {
+    public int create(ContactDetails contactDetails) {
 
+        return 0;
     }
 
     @Override
-    public void update(ContactDetails contactDetails, String[] params) {
-
+    public int update(ContactDetails contactDetails) throws SQLException {
+        return 0;
     }
 
-    @Override
-    public void delete(ContactDetails contactDetails) {
 
+    @Override
+    public int delete(ContactDetails contactDetails) {
+
+        return 0;
     }
 }
