@@ -64,7 +64,6 @@ public class ContactDetailsDao implements Dao<ContactDetails> {
 
     @Override
     public int delete(ContactDetails contactDetails) throws SQLException {
-
         Connection conn = ConnectionHandler.getConnection();
         try (PreparedStatement ps = conn.prepareStatement(DELETE_CONTACT)){
             ps.setString(1, contactDetails.getId().toString());
