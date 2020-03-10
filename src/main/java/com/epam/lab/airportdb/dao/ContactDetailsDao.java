@@ -25,8 +25,8 @@ public class ContactDetailsDao implements Dao<ContactDetails> {
             ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    Address address = addressDao.get(rs.getString("id")).get();
-                    contactDetails = new ContactDetails( rs.getInt("id"), rs.getString("emai"),
+                    Address address = addressDao.get(rs.getString("address")).get();
+                    contactDetails = new ContactDetails( rs.getInt("id"), rs.getString("email"),
                             rs.getString("phone"), address);
                 }
             }
@@ -41,8 +41,8 @@ public class ContactDetailsDao implements Dao<ContactDetails> {
         try (PreparedStatement ps = conn.prepareStatement(FIND_ALL_CONTACTS)){
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Address address = addressDao.get(rs.getString("id")).get();
-                    contactDetails.add(new ContactDetails( rs.getInt("id"), rs.getString("emai"),
+                    Address address = addressDao.get(rs.getString("address")).get();
+                    contactDetails.add(new ContactDetails( rs.getInt("id"), rs.getString("email"),
                             rs.getString("phone"), address));
                 }
             }
