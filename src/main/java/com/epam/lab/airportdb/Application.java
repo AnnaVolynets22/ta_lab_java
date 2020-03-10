@@ -16,13 +16,16 @@ public class Application {
         AddressService addressService = new AddressService();
         PlaneService planeService = new PlaneService();
         PassagerService passagerService = new PassagerService();
+        FlightService flightService = new FlightService();
+
         try {
            // countryService.printAllCountries();
             //countryService.findCountryAndPrintInfo("Italy");
             //cityService.printAllCities();
             //addressService.printAllAddresses();
            // planeService.printAllPlanes();
-            passagerService.printAllPassagers();
+           // passagerService.printAllPassagers();
+            flightService.printAllFligh();
         } catch (SQLException e) {
             e.printStackTrace();
         }

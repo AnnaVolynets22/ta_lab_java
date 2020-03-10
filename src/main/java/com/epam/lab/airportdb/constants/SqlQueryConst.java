@@ -57,8 +57,8 @@ public final class SqlQueryConst {
     //Flight table queries
     public static final String FIND_ALL_FLIGHTS = "SELECT * FROM Flight";
     public static final String DELETE_FLIGHT = "DELETE FROM Flight WHERE id=?";
-    public static final String CREATE_FLIGHT = "INSERT Flight (planeId, departureCity, destinationCity, departureTime," +
-            " arrivalTime) VALUES (?, ?, ?, ?, ?)";
+    public static final String CREATE_FLIGHT = "INSERT Flight (airlineId, planeId, departureCity, destinationCity, " +
+            "departureTime,  arrivalTime) VALUES (?, ?, ?, ?, ?, ?)";
     public static final String UPDATE_FLIGHT = "UPDATE Flight SET planeId=?, departureCity=?, destinationCity=?, " +
             "departureTime=?, arrivalTime=? WHERE id=?";
     public static final String FIND_FRIGHT_BY_ID = "SELECT * FROM Flight WHERE id=?";
