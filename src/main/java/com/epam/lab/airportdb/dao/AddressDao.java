@@ -4,7 +4,6 @@ import com.epam.lab.airportdb.connection.ConnectionHandler;
 import com.epam.lab.airportdb.model.Address;
 import com.epam.lab.airportdb.model.City;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,13 +20,12 @@ public class AddressDao implements Dao<Address> {
     @Override
     public Optional<Address> get(String id) throws SQLException {
         Address address = null;
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(FIND_ADDRESS_BY_ID)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(FIND_ADDRESS_BY_ID)) {
             ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     City city = cityDao.get(rs.getString("city")).get();
-                    address = new Address( rs.getInt("id"), city, rs.getString("street"),
+                    address = new Address(rs.getInt("id"), city, rs.getString("street"),
                             rs.getInt("buildNumber"), rs.getInt("flatNumber"));
                 }
             }
@@ -37,25 +35,23 @@ public class AddressDao implements Dao<Address> {
 
     @Override
     public List<Address> getAll() throws SQLException {
-        List<Address> addressess = new ArrayList<>();
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(FIND_ALL_ADDRESSES)) {
+        List<Address> addresses = new ArrayList<>();
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(FIND_ALL_ADDRESSES)) {
             try (ResultSet rs = ps.executeQuery()) {
-                while(rs.next()) {
+                while (rs.next()) {
                     City city = cityDao.get(rs.getString("city")).get();
-                    addressess.add(new Address( rs.getInt("id"), city, rs.getString("street"),
+                    addresses.add(new Address(rs.getInt("id"), city, rs.getString("street"),
                             rs.getInt("buildNumber"), rs.getInt("flatNumber")));
                 }
             }
         }
-        return addressess;
+        return addresses;
     }
 
     @Override
     public int create(Address address) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(CREATE_ADDRESS)) {
-            if (cityDao.get(address.getCity().getId().toString()).get() == null){
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(CREATE_ADDRESS)) {
+            if (cityDao.get(address.getCity().getId().toString()).get() == null) {
                 cityDao.create(address.getCity());
             }
             ps.setInt(1, address.getCity().getId());
@@ -68,9 +64,8 @@ public class AddressDao implements Dao<Address> {
 
     @Override
     public int update(Address address) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(UPDATE_ADDRESS)) {
-            if (cityDao.get(address.getCity().getId().toString()).get() == null){
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(UPDATE_ADDRESS)) {
+            if (cityDao.get(address.getCity().getId().toString()).get() == null) {
                 cityDao.create(address.getCity());
             }
             ps.setInt(1, address.getCity().getId());
@@ -83,8 +78,7 @@ public class AddressDao implements Dao<Address> {
 
     @Override
     public int delete(Address address) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(DELETE_ADDRESS)){
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_ADDRESS)) {
             ps.setString(1, address.getId().toString());
             return ps.executeUpdate();
         }

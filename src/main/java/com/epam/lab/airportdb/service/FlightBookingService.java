@@ -43,6 +43,10 @@ public class FlightBookingService implements Service<FlightBooking> {
         return flightBookingDao.delete(flightBooking);
     }
 
+    public Optional<FlightBooking> findByflightNumber(String flightNumber) throws SQLException {
+        return flightBookingDao.getByFlightNumber(flightNumber);
+    }
+
     public void printMainBookingInfo(String id) throws SQLException {
         String info = flightBookingDao.getMainBookingInfo(id);
         if (info == null) {

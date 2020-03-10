@@ -2,6 +2,7 @@ package com.epam.lab.airportdb.service;
 
 import com.epam.lab.airportdb.dao.FlightDao;
 import com.epam.lab.airportdb.model.Flight;
+import com.epam.lab.airportdb.model.FlightBooking;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,11 +37,16 @@ public class FlightService implements Service<Flight> {
 
     @Override
     public int delete(Flight flight) throws SQLException {
+        FlightBookingService flightBookingService = new FlightBookingService();
+        FlightBooking fb = flightBookingService.findByflightNumber(flight.getFlightNumber().toString()).get();
+        if (fb != null) {
+            flightBookingService.delete(fb);
+        }
         return flightDao.delete(flight);
     }
 
     public void findFligtAndPrintInfo(String id) throws SQLException {
-        Optional<Flight>  flight = flightDao.get(id);
+        Optional<Flight> flight = flightDao.get(id);
         if (flight != null) {
             log.info(flight.get().toString());
         } else {

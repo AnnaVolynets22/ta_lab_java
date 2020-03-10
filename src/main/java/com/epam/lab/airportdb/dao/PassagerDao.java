@@ -4,7 +4,6 @@ import com.epam.lab.airportdb.connection.ConnectionHandler;
 import com.epam.lab.airportdb.model.ContactDetails;
 import com.epam.lab.airportdb.model.Passager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,19 +13,18 @@ import java.util.Optional;
 
 import static com.epam.lab.airportdb.constants.SqlQueryConst.*;
 
-public class PassagerDao  implements Dao<Passager>{
+public class PassagerDao implements Dao<Passager> {
     private ContactDetailsDao contactDetailsDao = new ContactDetailsDao();
 
     @Override
     public Optional<Passager> get(String id) throws SQLException {
         Passager passager = null;
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(FIND_PASSAGER_BY_ID)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(FIND_PASSAGER_BY_ID)) {
             ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     ContactDetails contactDetails = contactDetailsDao.get(rs.getString("contacts")).get();
-                    passager = new Passager( rs.getInt("id"), rs.getString("secontName"),
+                    passager = new Passager(rs.getInt("id"), rs.getString("secontName"),
                             rs.getString("firstName"), rs.getString("nationality"), rs.getInt("age"),
                             contactDetails);
                 }
@@ -38,12 +36,11 @@ public class PassagerDao  implements Dao<Passager>{
     @Override
     public List<Passager> getAll() throws SQLException {
         List<Passager> passagers = new ArrayList<>();
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(FIND_ALL_PASSAGERS)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(FIND_ALL_PASSAGERS)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     ContactDetails contactDetails = contactDetailsDao.get(rs.getString("contacts")).get();
-                    passagers.add(new Passager( rs.getInt("id"), rs.getString("secontName"),
+                    passagers.add(new Passager(rs.getInt("id"), rs.getString("secontName"),
                             rs.getString("firstName"), rs.getString("nationality"), rs.getInt("age"),
                             contactDetails));
                 }
@@ -66,17 +63,15 @@ public class PassagerDao  implements Dao<Passager>{
 
     @Override
     public int delete(Passager passager) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(DELETE_PASSAGER)){
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_PASSAGER)) {
             ps.setString(1, passager.getId().toString());
             return ps.executeUpdate();
         }
     }
 
     private int prepareAndExecuteStatement(Passager passager, String query) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            if (contactDetailsDao.get(passager.getContacts().getId().toString()).get() == null){
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(query)) {
+            if (contactDetailsDao.get(passager.getContacts().getId().toString()).get() == null) {
                 contactDetailsDao.create(passager.getContacts());
             }
             ps.setString(1, passager.getSecondName());

@@ -26,8 +26,8 @@ public class Application {
             //addressService.printAllAddresses();
            // planeService.printAllPlanes();
            // passagerService.printAllPassagers();
-            //flightService.printAllFligh();
-            //flightService.findFligtAndPrintInfo("1");
+            flightService.printAllFligh();
+            //flightService.findFligtAndPrintInfo("5");
             flightBookingService.printMainBookingInfo("7");
         } catch (SQLException e) {
             e.printStackTrace();

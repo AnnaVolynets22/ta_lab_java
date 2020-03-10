@@ -3,7 +3,6 @@ package com.epam.lab.airportdb.dao;
 import com.epam.lab.airportdb.connection.ConnectionHandler;
 import com.epam.lab.airportdb.model.Country;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,8 +16,7 @@ public class CountryDao implements Dao<Country> {
     @Override
     public Optional<Country> get(String id) throws SQLException {
         Country country = null;
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(FIND_COUNTRY_BY_NAME)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(FIND_COUNTRY_BY_NAME)) {
             ps.setString(1, id);
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
@@ -32,8 +30,7 @@ public class CountryDao implements Dao<Country> {
     @Override
     public List<Country> getAll() throws SQLException {
         List<Country> countries = new ArrayList<>();
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(FIND_ALL_COUNTRIES)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(FIND_ALL_COUNTRIES)) {
             try (ResultSet resultSet = ps.executeQuery()) {
                 while(resultSet.next()) {
                     countries.add((new Country(resultSet.getString("country"), resultSet.getBoolean("isEu"))));
@@ -45,8 +42,7 @@ public class CountryDao implements Dao<Country> {
 
     @Override
     public int create(Country country) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(CREATE_COUNTRY)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(CREATE_COUNTRY)) {
             ps.setString(1, country.getCountryName());
             ps.setBoolean(2, country.isEu());
             return ps.executeUpdate();
@@ -55,8 +51,7 @@ public class CountryDao implements Dao<Country> {
 
     @Override
     public int update(Country country) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(UPDATE_COUNTRY)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(UPDATE_COUNTRY)) {
             ps.setBoolean(1, country.isEu());
             ps.setString(2, country.getCountryName());
             return ps.executeUpdate();
@@ -65,8 +60,7 @@ public class CountryDao implements Dao<Country> {
 
     @Override
     public int delete(Country country) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(DELETE_COUNTRY)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_COUNTRY)) {
             ps.setString(1, country.getCountryName());
             return ps.executeUpdate();
         }

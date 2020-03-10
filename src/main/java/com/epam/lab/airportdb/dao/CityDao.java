@@ -4,7 +4,6 @@ import com.epam.lab.airportdb.connection.ConnectionHandler;
 import com.epam.lab.airportdb.model.City;
 import com.epam.lab.airportdb.model.Country;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,8 +20,7 @@ public class CityDao implements Dao<City> {
     @Override
     public Optional<City> get(String id) throws SQLException {
         City city = null;
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(FIND_CITY_BY_ID)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(FIND_CITY_BY_ID)) {
             ps.setString(1, id);
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
@@ -37,12 +35,11 @@ public class CityDao implements Dao<City> {
     @Override
     public List<City> getAll() throws SQLException {
         List<City> cities = new ArrayList<>();
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(FIND_ALL_CITIES)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(FIND_ALL_CITIES)) {
             try (ResultSet resultSet = ps.executeQuery()) {
-                while(resultSet.next()) {
+                while (resultSet.next()) {
                     Country country = countryDao.get(resultSet.getString("cityCountry")).get();
-                    cities.add((new City(resultSet.getInt("id"), resultSet.getString("cityName"),  country)));
+                    cities.add((new City(resultSet.getInt("id"), resultSet.getString("cityName"), country)));
                 }
             }
         }
@@ -51,8 +48,7 @@ public class CityDao implements Dao<City> {
 
     @Override
     public int create(City city) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(CREATE_CITY)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(CREATE_CITY)) {
             ps.setString(1, city.getCityName());
             ps.setString(2, city.getCityCountry().getCountryName());
             return ps.executeUpdate();
@@ -61,8 +57,7 @@ public class CityDao implements Dao<City> {
 
     @Override
     public int update(City city) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(UPDATE_CITY)) {
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(UPDATE_CITY)) {
             ps.setString(1, city.getCityName());
             ps.setString(2, city.getCityCountry().getCountryName());
             return ps.executeUpdate();
@@ -71,8 +66,7 @@ public class CityDao implements Dao<City> {
 
     @Override
     public int delete(City city) throws SQLException {
-        Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(DELETE_CITY)){
+        try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_CITY)) {
             ps.setString(1, city.getId().toString());
             return ps.executeUpdate();
         }
