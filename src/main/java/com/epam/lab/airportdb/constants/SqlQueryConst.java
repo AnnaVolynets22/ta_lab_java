@@ -71,7 +71,11 @@ public final class SqlQueryConst {
     public static final String UPDATE_FLIGHT_BOOKING = "UPDATE FlightBooking SET flightNumber=?, passagerId=?, " +
             "seat=? WHERE bookingId=?";
     public static final String FIND_FRIGHT_BOOKING_BY_ID = "SELECT * FROM FlightBooking WHERE bookingId=?";
-
+    public static final String FIND_SELECTET_INFO_BY_JOIN = "SELECT  b.flightNumber, b.seat, p.firstName, p.secontName, " +
+            "c.phone, ct.cityName " +
+            "FROM FlightBooking b INNER JOIN Passager p ON b.passagerId = p.id " +
+            "INNER JOIN ContactDetails c ON p.contacts = c.id INNER JOIN Address a ON c.address = a.id " +
+            "INNER JOIN City ct ON a.city = ct.id WHERE b.bookingId =?";
     private SqlQueryConst(){
         throw  new IllegalStateException("Utility class");
     }

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static com.epam.lab.airportdb.constants.SqlQueryConst.*;
 
-public class FlightBookingDao implements Dao<FlightBooking>{
+public class FlightBookingDao implements Dao<FlightBooking> {
 
     private FlightDao flightDao = new FlightDao();
     private PassagerDao passagerDao = new PassagerDao();
@@ -30,7 +30,7 @@ public class FlightBookingDao implements Dao<FlightBooking>{
                 if (rs.next()) {
                     Flight flight = flightDao.get(rs.getString("flightNumber")).get();
                     Passager passager = passagerDao.get(rs.getString("passagerId")).get();
-                    flightBooking = new FlightBooking( rs.getInt("bookingId"), flight, passager, rs.getString("seat"));
+                    flightBooking = new FlightBooking(rs.getInt("bookingId"), flight, passager, rs.getString("seat"));
                 }
             }
         }
@@ -46,7 +46,7 @@ public class FlightBookingDao implements Dao<FlightBooking>{
                 while (rs.next()) {
                     Flight flight = flightDao.get(rs.getString("flightNumber")).get();
                     Passager passager = passagerDao.get(rs.getString("passagerId")).get();
-                    flightBookings.add(new FlightBooking( rs.getInt("bookingId"), flight, passager, rs.getString("seat")));
+                    flightBookings.add(new FlightBooking(rs.getInt("bookingId"), flight, passager, rs.getString("seat")));
                 }
             }
         }
@@ -67,10 +67,26 @@ public class FlightBookingDao implements Dao<FlightBooking>{
     @Override
     public int delete(FlightBooking flightBooking) throws SQLException {
         Connection conn = ConnectionHandler.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(DELETE_FLIGHT_BOOKING)){
+        try (PreparedStatement ps = conn.prepareStatement(DELETE_FLIGHT_BOOKING)) {
             ps.setString(1, flightBooking.getBookingId().toString());
             return ps.executeUpdate();
         }
+    }
+
+    public String getMainBookingInfo(String id) throws SQLException {
+        Connection conn = ConnectionHandler.getConnection();
+        String bookingInfo = null;
+        try (PreparedStatement ps = conn.prepareStatement(FIND_SELECTET_INFO_BY_JOIN)) {
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    bookingInfo = String.format("Flight number: %d Seat: %s FirstName: %s SecondName: %s phone: %s city: %s",
+                            rs.getInt("flightNumber"), rs.getString("seat"), rs.getString("firstName"),
+                            rs.getString("secontName"), rs.getString("phone"), rs.getString("cityName"));
+                }
+            }
+        }
+        return bookingInfo;
     }
 
     private int prepareAndExecuteStatement(FlightBooking flightBooking, String query) throws SQLException {
@@ -79,7 +95,7 @@ public class FlightBookingDao implements Dao<FlightBooking>{
             ps.setInt(1, flightBooking.getFlight().getFlightNumber());
             ps.setInt(2, flightBooking.getPassager().getId());
             ps.setString(3, flightBooking.getSeat());
-              return ps.executeUpdate();
+            return ps.executeUpdate();
         }
     }
 }

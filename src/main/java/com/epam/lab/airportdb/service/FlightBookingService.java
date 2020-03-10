@@ -9,12 +9,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class FlightBookingService implements Service<FlightBooking>{
+public class FlightBookingService implements Service<FlightBooking> {
     private static final Logger log = LogManager.getLogger(FlightBookingService.class);
 
     private FlightBookingDao flightBookingDao = new FlightBookingDao();
     private FlightService flightService = new FlightService();
     private PassagerService passagerService = new PassagerService();
+
     @Override
     public Optional<FlightBooking> find(String id) throws SQLException {
         return flightBookingDao.get(id);
@@ -42,8 +43,17 @@ public class FlightBookingService implements Service<FlightBooking>{
         return flightBookingDao.delete(flightBooking);
     }
 
+    public void printMainBookingInfo(String id) throws SQLException {
+        String info = flightBookingDao.getMainBookingInfo(id);
+        if (info == null) {
+            log.info("Nothing was found!");
+        } else {
+            log.info(info);
+        }
+    }
+
     public void findAndPrintBookingInfo(String id) throws SQLException {
-        Optional<FlightBooking>  flightBooking = flightBookingDao.get(id);
+        Optional<FlightBooking> flightBooking = flightBookingDao.get(id);
         if (flightBooking != null) {
             log.info(flightBooking.get().toString());
         } else {
@@ -57,10 +67,10 @@ public class FlightBookingService implements Service<FlightBooking>{
     }
 
     private void createSubEntitiesIfNotExist(FlightBooking flightBooking) throws SQLException {
-        if(flightService.find(flightBooking.getFlight().getFlightNumber().toString()).get() == null){
+        if (flightService.find(flightBooking.getFlight().getFlightNumber().toString()).get() == null) {
             flightService.create(flightBooking.getFlight());
         }
-        if(passagerService.find(flightBooking.getPassager().getId().toString()).get() == null){
+        if (passagerService.find(flightBooking.getPassager().getId().toString()).get() == null) {
             passagerService.create(flightBooking.getPassager());
         }
     }
