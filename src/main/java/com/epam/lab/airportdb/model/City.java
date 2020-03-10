@@ -40,8 +40,8 @@ public class City {
     public String toString() {
         return "City{" +
                 "id=" + id +
-                ", cityName='" + cityName + '\'' +
-                ", cityCountry=" + cityCountry.getCountryName() +
+                ", city='" + cityName + '\'' +
+                ", country=" + cityCountry.getCountryName() +
                 '}';
     }
 }

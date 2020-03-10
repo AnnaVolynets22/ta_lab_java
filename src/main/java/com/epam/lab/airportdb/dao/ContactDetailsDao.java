@@ -1,38 +1,87 @@
 package com.epam.lab.airportdb.dao;
 
+import com.epam.lab.airportdb.connection.ConnectionHandler;
+import com.epam.lab.airportdb.model.Address;
 import com.epam.lab.airportdb.model.ContactDetails;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.epam.lab.airportdb.constants.SqlQueryConst.*;
+
 public class ContactDetailsDao implements Dao<ContactDetails> {
+    AddressDao addressDao =  new AddressDao();
 
     @Override
     public Optional<ContactDetails> get(String id) throws SQLException {
-        return Optional.empty();
+        ContactDetails contactDetails = null;
+        Connection conn = ConnectionHandler.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(FIND_CONTACT_BY_ID)) {
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Address address = addressDao.get(rs.getString("id")).get();
+                    contactDetails = new ContactDetails( rs.getInt("id"), rs.getString("emai"),
+                            rs.getString("phone"), address);
+                }
+            }
+        }
+        return Optional.of(contactDetails);
     }
 
     @Override
-    public List<ContactDetails> getAll() {
-        return null;
+    public List<ContactDetails> getAll() throws SQLException {
+        List<ContactDetails> contactDetails = new ArrayList<>();
+        Connection conn = ConnectionHandler.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(FIND_ALL_CONTACTS)){
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Address address = addressDao.get(rs.getString("id")).get();
+                    contactDetails.add(new ContactDetails( rs.getInt("id"), rs.getString("emai"),
+                            rs.getString("phone"), address));
+                }
+            }
+        }
+        return contactDetails;
     }
 
     @Override
-    public int create(ContactDetails contactDetails) {
+    public int create(ContactDetails contactDetails) throws SQLException {
 
-        return 0;
+        return prepareAndExecuteStatement(contactDetails, CREATE_CONTACT);
     }
 
     @Override
     public int update(ContactDetails contactDetails) throws SQLException {
-        return 0;
+        return prepareAndExecuteStatement(contactDetails, UPDATE_CONTACT);
     }
 
 
     @Override
-    public int delete(ContactDetails contactDetails) {
+    public int delete(ContactDetails contactDetails) throws SQLException {
 
-        return 0;
+        Connection conn = ConnectionHandler.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(DELETE_CONTACT)){
+            ps.setString(1, contactDetails.getId().toString());
+            return ps.executeUpdate();
+        }
+    }
+
+    private int prepareAndExecuteStatement(ContactDetails contactDetails, String query) throws SQLException {
+        Connection conn = ConnectionHandler.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            if (addressDao.get(contactDetails.getAddress().getId().toString()).get() == null){
+                addressDao.create(contactDetails.getAddress());
+            }
+            ps.setString(1, contactDetails.getEmail());
+            ps.setString(2, contactDetails.getPhone());
+            ps.setInt(3, contactDetails.getAddress().getId());
+            return ps.executeUpdate();
+        }
     }
 }

@@ -31,16 +31,16 @@ public class CountryDao implements Dao<Country> {
 
     @Override
     public List<Country> getAll() throws SQLException {
-        List<Country> departments = new ArrayList<>();
+        List<Country> countries = new ArrayList<>();
         Connection conn = ConnectionHandler.getConnection();
         try (PreparedStatement ps = conn.prepareStatement(FIND_ALL_COUNTRIES)) {
             try (ResultSet resultSet = ps.executeQuery()) {
                 while(resultSet.next()) {
-                    departments.add((new Country(resultSet.getString("country"), resultSet.getBoolean("isEu"))));
+                    countries.add((new Country(resultSet.getString("country"), resultSet.getBoolean("isEu"))));
                 }
             }
         }
-        return departments;
+        return countries;
     }
 
     @Override
