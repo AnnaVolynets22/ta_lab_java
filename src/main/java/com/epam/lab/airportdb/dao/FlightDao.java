@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,6 @@ public class FlightDao implements Dao<Flight> {
     private CityDao cityDao = new CityDao();
     private PlaneDao planeDao = new PlaneDao();
     private AirlineDao airlineDao = new AirlineDao();
-
 
     @Override
     public Optional<Flight> get(String id) throws SQLException {
@@ -44,7 +44,7 @@ public class FlightDao implements Dao<Flight> {
 
     @Override
     public List<Flight> getAll() throws SQLException {
-        List<Flight> flights = null;
+        List<Flight> flights = new ArrayList<>();
         Connection conn = ConnectionHandler.getConnection();
         try (PreparedStatement ps = conn.prepareStatement(FIND_ALL_FLIGHTS)) {
               try (ResultSet rs = ps.executeQuery()) {
@@ -96,7 +96,7 @@ public class FlightDao implements Dao<Flight> {
             ps.setInt(3, flight.getDepartureCity().getId());
             ps.setInt(4, flight.getDestinationCity().getId());
             ps.setTimestamp(5, flight.getDepartureTime());
-            ps.setTimestamp(5, flight.getArrivalTime());
+            ps.setTimestamp(6, flight.getArrivalTime());
             return ps.executeUpdate();
         }
     }

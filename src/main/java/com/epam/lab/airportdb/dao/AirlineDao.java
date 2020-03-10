@@ -24,7 +24,7 @@ public class AirlineDao implements Dao<Airline>{
             ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    Address address = addressDao.get(rs.getString("id")).get();
+                    Address address = addressDao.get(rs.getString("address")).get();
                     airline = new Airline(rs.getInt("id"), rs.getString("airlineName"), address);
                 }
             }

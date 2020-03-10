@@ -56,21 +56,21 @@ public final class SqlQueryConst {
 
     //Flight table queries
     public static final String FIND_ALL_FLIGHTS = "SELECT * FROM Flight";
-    public static final String DELETE_FLIGHT = "DELETE FROM Flight WHERE id=?";
+    public static final String DELETE_FLIGHT = "DELETE FROM Flight WHERE flightNumber=?";
     public static final String CREATE_FLIGHT = "INSERT Flight (airlineId, planeId, departureCity, destinationCity, " +
             "departureTime,  arrivalTime) VALUES (?, ?, ?, ?, ?, ?)";
-    public static final String UPDATE_FLIGHT = "UPDATE Flight SET planeId=?, departureCity=?, destinationCity=?, " +
-            "departureTime=?, arrivalTime=? WHERE id=?";
-    public static final String FIND_FRIGHT_BY_ID = "SELECT * FROM Flight WHERE id=?";
+    public static final String UPDATE_FLIGHT = "UPDATE Flight SET airlineId=?, planeId=?, departureCity=?, " +
+            "destinationCity=?, departureTime=?, arrivalTime=? WHERE flightNumber=?";
+    public static final String FIND_FRIGHT_BY_ID = "SELECT * FROM Flight WHERE flightNumber=?";
 
     //FlightBooking table queries
     public static final String FIND_ALL_FLIGHt_BOOKINGS = "SELECT * FROM FlightBooking";
-    public static final String DELETE_FLIGHT_BOOKING = "DELETE FROM FlightBooking WHERE id=?";
-    public static final String CREATE_FLIGHT_BOOKING = "INSERT FlightBooking (planeId, departureCity, destinationCity, " +
-            "departureTime, arrivalTime) VALUES (?, ?, ?, ?, ?)";
-    public static final String UPDATE_FLIGHT_BOOKING = "UPDATE FlightBooking SET planeId=?, departureCity=?, " +
-            "destinationCity=?, departureTime=?, arrivalTime=? WHERE id=?";
-    public static final String FIND_FRIGHT_BOOKING_BY_ID = "SELECT * FROM FlightBooking WHERE id=?";
+    public static final String DELETE_FLIGHT_BOOKING = "DELETE FROM FlightBooking WHERE bookingId=?";
+    public static final String CREATE_FLIGHT_BOOKING = "INSERT FlightBooking (flightNumper, passagerId, seat) " +
+            "VALUES (?, ?, ?)";
+    public static final String UPDATE_FLIGHT_BOOKING = "UPDATE FlightBooking SET flightNumber=?, passagerId=?, " +
+            "seat=? WHERE bookingId=?";
+    public static final String FIND_FRIGHT_BOOKING_BY_ID = "SELECT * FROM FlightBooking WHERE bookingId=?";
 
     private SqlQueryConst(){
         throw  new IllegalStateException("Utility class");

@@ -17,6 +17,7 @@ public class Application {
         PlaneService planeService = new PlaneService();
         PassagerService passagerService = new PassagerService();
         FlightService flightService = new FlightService();
+        FlightBookingService flightBookingService = new FlightBookingService();
 
         try {
            // countryService.printAllCountries();
@@ -25,9 +26,12 @@ public class Application {
             //addressService.printAllAddresses();
            // planeService.printAllPlanes();
            // passagerService.printAllPassagers();
-            flightService.printAllFligh();
+            //flightService.printAllFligh();
+            //flightService.findFligtAndPrintInfo("1");
+            flightBookingService.printAllBookings();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 }

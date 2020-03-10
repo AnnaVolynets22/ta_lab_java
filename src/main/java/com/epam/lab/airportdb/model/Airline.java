@@ -35,4 +35,13 @@ public class Airline {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Airline{" +
+                "id=" + id +
+                ", airlineName='" + airlineName + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }
