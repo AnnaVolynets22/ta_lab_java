@@ -90,6 +90,9 @@ public class FlightDao implements Dao<Flight> {
             ps.setInt(4, flight.getDestinationCity().getId());
             ps.setTimestamp(5, flight.getDepartureTime());
             ps.setTimestamp(6, flight.getArrivalTime());
+            if(query == UPDATE_FLIGHT) {
+                ps.setInt(7, flight.getFlightNumber());
+            }
             return ps.executeUpdate();
         }
     }

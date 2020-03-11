@@ -75,6 +75,9 @@ public class ContactDetailsDao implements Dao<ContactDetails> {
             ps.setString(1, contactDetails.getEmail());
             ps.setString(2, contactDetails.getPhone());
             ps.setInt(3, contactDetails.getAddress().getId());
+            if(query == UPDATE_CONTACT) {
+                ps.setInt(4, contactDetails.getId());
+            }
             return ps.executeUpdate();
         }
     }

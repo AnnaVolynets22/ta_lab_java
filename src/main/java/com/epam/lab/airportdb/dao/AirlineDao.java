@@ -71,6 +71,9 @@ public class AirlineDao implements Dao<Airline> {
             }
             ps.setString(1, airline.getAirlineName());
             ps.setInt(2, airline.getAddress().getId());
+            if(query == UPDATE_AIRLINE) {
+                ps.setInt(3, airline.getId());
+            }
             return ps.executeUpdate();
         }
     }

@@ -97,6 +97,9 @@ public class FlightBookingDao implements Dao<FlightBooking> {
             ps.setInt(1, flightBooking.getFlight().getFlightNumber());
             ps.setInt(2, flightBooking.getPassager().getId());
             ps.setString(3, flightBooking.getSeat());
+            if(query == UPDATE_FLIGHT_BOOKING) {
+                ps.setInt(4, flightBooking.getBookingId());
+            }
             return ps.executeUpdate();
         }
     }

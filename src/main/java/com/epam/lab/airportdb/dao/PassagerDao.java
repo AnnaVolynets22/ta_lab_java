@@ -79,6 +79,9 @@ public class PassagerDao implements Dao<Passager> {
             ps.setString(3, passager.getNationality());
             ps.setInt(4, passager.getAge());
             ps.setInt(5, passager.getContacts().getId());
+            if(query == UPDATE_PASSAGER) {
+                ps.setInt(6, passager.getId());
+            }
             return ps.executeUpdate();
         }
     }
