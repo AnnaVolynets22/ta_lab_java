@@ -35,8 +35,8 @@ public class CountryService implements Service<Country> {
     }
 
     @Override
-    public int delete(Country country) throws SQLException {
-        return countryDao.delete(country);
+    public int delete(String id) throws SQLException {
+        return countryDao.delete(id);
     }
 
     public void findCountryAndPrintInfo(String countryName) throws SQLException {

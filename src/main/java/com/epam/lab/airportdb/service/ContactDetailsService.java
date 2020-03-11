@@ -30,7 +30,7 @@ public class ContactDetailsService implements Service<ContactDetails> {
     }
 
     @Override
-    public int delete(ContactDetails contactDetails) throws SQLException {
-        return contactDetailsDao.delete(contactDetails);
+    public int delete(String id) throws SQLException {
+        return contactDetailsDao.delete(id);
     }
 }

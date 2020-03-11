@@ -15,5 +15,5 @@ public interface Service<T> {
 
     int update(T t) throws SQLException;
 
-    int delete(T t) throws SQLException;
+    int delete(String id) throws SQLException;
 }

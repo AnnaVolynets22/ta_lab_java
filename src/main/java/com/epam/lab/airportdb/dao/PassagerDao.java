@@ -62,9 +62,9 @@ public class PassagerDao implements Dao<Passager> {
     }
 
     @Override
-    public int delete(Passager passager) throws SQLException {
+    public int delete(String id) throws SQLException {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_PASSAGER)) {
-            ps.setString(1, passager.getId().toString());
+            ps.setString(1, id);
             return ps.executeUpdate();
         }
     }

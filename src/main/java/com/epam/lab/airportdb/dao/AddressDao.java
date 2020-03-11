@@ -77,9 +77,9 @@ public class AddressDao implements Dao<Address> {
     }
 
     @Override
-    public int delete(Address address) throws SQLException {
+    public int delete(String id) throws SQLException {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_ADDRESS)) {
-            ps.setString(1, address.getId().toString());
+            ps.setString(1, id);
             return ps.executeUpdate();
         }
     }

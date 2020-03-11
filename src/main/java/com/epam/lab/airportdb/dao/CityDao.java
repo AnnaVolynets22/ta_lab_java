@@ -65,9 +65,9 @@ public class CityDao implements Dao<City> {
     }
 
     @Override
-    public int delete(City city) throws SQLException {
+    public int delete(String id) throws SQLException {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_CITY)) {
-            ps.setString(1, city.getId().toString());
+            ps.setString(1, id);
             return ps.executeUpdate();
         }
     }

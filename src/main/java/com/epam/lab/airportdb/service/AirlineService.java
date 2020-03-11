@@ -34,8 +34,8 @@ public class AirlineService implements Service<Airline> {
     }
 
     @Override
-    public int delete(Airline airline) throws SQLException {
-        return airlineDao.delete(airline);
+    public int delete(String id) throws SQLException {
+        return airlineDao.delete(id);
     }
 
     public void findAirlineAndPrintInfo(String id) throws SQLException {
@@ -47,7 +47,7 @@ public class AirlineService implements Service<Airline> {
         }
     }
 
-    public void printAllCities() throws SQLException {
+    public void printAllAirlines() throws SQLException {
         List<Airline> airlines = airlineDao.getAll();
         airlines.forEach(log::info);
     }

@@ -35,8 +35,8 @@ public class AddressService implements Service<Address>{
     }
 
     @Override
-    public int delete(Address address) throws SQLException {
-        return addressDao.delete(address);
+    public int delete(String id) throws SQLException {
+        return addressDao.delete(id);
     }
 
     public void findCityAndPrintInfo(String id) throws SQLException {

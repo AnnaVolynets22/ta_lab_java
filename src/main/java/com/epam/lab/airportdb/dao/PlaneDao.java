@@ -60,9 +60,9 @@ public class PlaneDao implements Dao<Plane> {
     }
 
     @Override
-    public int delete(Plane plane) throws SQLException {
+    public int delete(String id) throws SQLException {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_PLANE)) {
-            ps.setString(1, plane.getId().toString());
+            ps.setString(1, id);
             return ps.executeUpdate();
         }
     }

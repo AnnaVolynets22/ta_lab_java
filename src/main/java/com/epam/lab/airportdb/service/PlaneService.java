@@ -35,8 +35,8 @@ public class PlaneService implements Service<Plane>{
     }
 
     @Override
-    public int delete(Plane plane) throws SQLException {
-        return planeDao.delete(plane);
+    public int delete(String id) throws SQLException {
+        return planeDao.delete(id);
     }
 
     public void printPlane(String id) throws SQLException {

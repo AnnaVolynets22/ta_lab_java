@@ -60,9 +60,9 @@ public class ContactDetailsDao implements Dao<ContactDetails> {
 
 
     @Override
-    public int delete(ContactDetails contactDetails) throws SQLException {
+    public int delete(String id) throws SQLException {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_CONTACT)) {
-            ps.setString(1, contactDetails.getId().toString());
+            ps.setString(1, id);
             return ps.executeUpdate();
         }
     }

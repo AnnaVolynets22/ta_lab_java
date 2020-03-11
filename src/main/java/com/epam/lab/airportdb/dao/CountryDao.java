@@ -59,9 +59,9 @@ public class CountryDao implements Dao<Country> {
     }
 
     @Override
-    public int delete(Country country) throws SQLException {
+    public int delete(String id) throws SQLException {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_COUNTRY)) {
-            ps.setString(1, country.getCountryName());
+            ps.setString(1, id);
             return ps.executeUpdate();
         }
     }

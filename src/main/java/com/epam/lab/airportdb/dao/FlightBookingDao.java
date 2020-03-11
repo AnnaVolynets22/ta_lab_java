@@ -70,9 +70,9 @@ public class FlightBookingDao implements Dao<FlightBooking> {
     }
 
     @Override
-    public int delete(FlightBooking flightBooking) throws SQLException {
+    public int delete(String id) throws SQLException {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_FLIGHT_BOOKING)) {
-            ps.setString(1, flightBooking.getBookingId().toString());
+            ps.setString(1, id);
             return ps.executeUpdate();
         }
     }

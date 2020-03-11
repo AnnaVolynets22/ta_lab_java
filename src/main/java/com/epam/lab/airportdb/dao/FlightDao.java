@@ -69,9 +69,9 @@ public class FlightDao implements Dao<Flight> {
     }
 
     @Override
-    public int delete(Flight flight) throws SQLException {
+    public int delete(String id) throws SQLException {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_FLIGHT)) {
-            ps.setString(1, flight.getFlightNumber().toString());
+            ps.setString(1, id);
             return ps.executeUpdate();
         }
     }

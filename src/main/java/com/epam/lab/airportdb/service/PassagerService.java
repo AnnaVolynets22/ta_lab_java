@@ -34,14 +34,14 @@ public class PassagerService implements Service<Passager> {
     }
 
     @Override
-    public int delete(Passager passager) throws SQLException {
-        return passagerDao.delete(passager);
+    public int delete(String id) throws SQLException {
+        return passagerDao.delete(id);
     }
 
     public void deletePassagerWithContacts(Passager passager) throws SQLException {
         ContactDetailsService contactDetailsService = new ContactDetailsService();
-        passagerDao.delete(passager);
-        contactDetailsService.delete(passager.getContacts());
+        passagerDao.delete(passager.getId().toString());
+        contactDetailsService.delete(passager.getContacts().getId().toString());
     }
 
     public void printPassager(String id) throws SQLException {
@@ -51,7 +51,6 @@ public class PassagerService implements Service<Passager> {
         } else {
             log.info("Passager with  " + id + " not found");
         }
-
     }
 
     public void printAllPassagers() throws SQLException {

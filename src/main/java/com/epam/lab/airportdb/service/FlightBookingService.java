@@ -39,8 +39,8 @@ public class FlightBookingService implements Service<FlightBooking> {
     }
 
     @Override
-    public int delete(FlightBooking flightBooking) throws SQLException {
-        return flightBookingDao.delete(flightBooking);
+    public int delete(String id) throws SQLException {
+        return flightBookingDao.delete(id);
     }
 
     public Optional<FlightBooking> findByflightNumber(String flightNumber) throws SQLException {

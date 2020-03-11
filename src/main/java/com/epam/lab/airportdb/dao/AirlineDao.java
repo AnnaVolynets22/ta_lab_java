@@ -37,7 +37,7 @@ public class AirlineDao implements Dao<Airline> {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(FIND_ALL_AIRLINES)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Address address = addressDao.get(rs.getString("id")).get();
+                    Address address = addressDao.get(rs.getString("address")).get();
                     airlines.add(new Airline(rs.getInt("id"), rs.getString("airlineName"), address));
                 }
             }
@@ -57,9 +57,9 @@ public class AirlineDao implements Dao<Airline> {
     }
 
     @Override
-    public int delete(Airline airline) throws SQLException {
+    public int delete(String id) throws SQLException {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(DELETE_CONTACT)) {
-            ps.setString(1, airline.getId().toString());
+            ps.setString(1, id);
             return ps.executeUpdate();
         }
     }

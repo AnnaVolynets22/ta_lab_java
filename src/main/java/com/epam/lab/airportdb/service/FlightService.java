@@ -36,13 +36,13 @@ public class FlightService implements Service<Flight> {
     }
 
     @Override
-    public int delete(Flight flight) throws SQLException {
+    public int delete(String id) throws SQLException {
         FlightBookingService flightBookingService = new FlightBookingService();
-        FlightBooking fb = flightBookingService.findByflightNumber(flight.getFlightNumber().toString()).get();
+        FlightBooking fb = flightBookingService.findByflightNumber(id).get();
         if (fb != null) {
-            flightBookingService.delete(fb);
+            flightBookingService.delete(fb.getBookingId().toString());
         }
-        return flightDao.delete(flight);
+        return flightDao.delete(id);
     }
 
     public void findFligtAndPrintInfo(String id) throws SQLException {

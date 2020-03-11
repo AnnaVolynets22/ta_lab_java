@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionHandler {
+public class ConnectionHandler implements AutoCloseable{
     private static final Logger log = LogManager.getLogger(ConnectionHandler.class);
 
     private static DataProperties props = new DataProperties();
@@ -38,7 +38,7 @@ public class ConnectionHandler {
         return connection;
     }
 
-    public static void closeConnection() {
+    public void close() {
         if (connection != null) {
             try {
                 connection.close();
