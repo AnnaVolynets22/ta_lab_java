@@ -8,6 +8,6 @@ public class Application {
     private static final Logger log = LogManager.getLogger(Application.class);
 
     public static void main(String[] args) {
-        new View().show();
+            new View().show();
     }
 }

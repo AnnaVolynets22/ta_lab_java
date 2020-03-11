@@ -55,6 +55,7 @@ public class PlaneDao implements Dao<Plane> {
         try (PreparedStatement ps = ConnectionHandler.getConnection().prepareStatement(UPDATE_PLANE)) {
             ps.setString(1, plane.getPlaneNumber());
             ps.setInt(2, plane.getCapacity());
+            ps.setInt(3, plane.getId());
             return ps.executeUpdate();
         }
     }

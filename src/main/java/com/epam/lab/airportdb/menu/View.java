@@ -1,6 +1,8 @@
 package com.epam.lab.airportdb.menu;
 
 import com.epam.lab.airportdb.model.Airline;
+import com.epam.lab.airportdb.model.Country;
+import com.epam.lab.airportdb.model.Passager;
 import com.epam.lab.airportdb.model.Plane;
 import com.epam.lab.airportdb.service.*;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +23,7 @@ public class View {
     public View() {
         menu = new LinkedHashMap<>();
         methodsMenu = new LinkedHashMap<>();
-        menu.put("A", "   A - Select all tables");
+        menu.put("A", "   A - Select all data");
 
         menu.put("1", "   1 - Table: Plane");
         menu.put("11", "  11 - Create for Plane");
@@ -51,7 +53,6 @@ public class View {
         menu.put("44", "  44 - Select FlightBooking");
         menu.put("45", "  45 - Find FlightBooking by ID");
         menu.put("46", "  46 - Print main booking info by ID");
-
 
         menu.put("5", "   5 - Table: Passager");
         menu.put("51", "  51 - Create for Passager");
@@ -104,6 +105,74 @@ public class View {
         selectPassager();
     }
 
+    private void findAirlineByID() throws SQLException {
+        log.info("Input ID of Airline you are looking for: ");
+        String id = input.nextLine();
+        AirlineService service = new AirlineService();
+        service.findAirlineAndPrintInfo(id);
+    }
+
+    private void selectAirline() throws SQLException {
+        log.info("Table: Airline");
+        AirlineService service = new AirlineService();
+        service.printAllAirlines();
+    }
+
+    private void deleteFromAirline() throws SQLException {
+        log.info("\nInput Airline ID: ");
+        String id = input.nextLine();
+        AirlineService service = new AirlineService();
+        int count = service.delete(id);
+        log.info(count + "rows were deleted\n");
+    }
+
+    private void updateAirline() throws SQLException {
+        log.info("Input Airline ID : ");
+        String id = input.next();
+        log.info("Input airlineName: ");
+        String airlineName = input.next();
+        AirlineService service = new AirlineService();
+        Airline entity = service.find(id).get();
+        entity.setAirlineName(airlineName);
+        int count = service.update(entity);
+        log.info(count + "rows were updated\n");
+    }
+
+    private void createForAirline() throws SQLException {
+        log.info("Input Airline ID : ");
+        int id = input.nextInt();
+        log.info("Input airlineName: ");
+        String airlineName = input.next();
+        log.info("Input address: ");
+        String address = input.next();
+        AirlineService service = new AirlineService();
+        AddressService addressService = new AddressService();
+        Airline entity = new Airline(id, airlineName, addressService.find(address).get());
+        int count = service.create(entity);
+        log.info(count + "rows were updated\n");
+    }
+
+    private void findPlaneByID() throws SQLException {
+        log.info("Input ID of Plane you are looking for: ");
+        String id = input.nextLine();
+        PlaneService planeService = new PlaneService();
+        planeService.printPlane(id);
+    }
+
+    private void selectPlane() throws SQLException {
+        log.info("Table: Plane");
+        PlaneService planeService = new PlaneService();
+        planeService.printAllPlanes();
+    }
+
+    private void deleteFromPlane() throws SQLException {
+        log.info("\nInput Plane ID: ");
+        String id = input.nextLine();
+        PlaneService planeService = new PlaneService();
+        int count = planeService.delete(id);
+        log.info(count + "rows were deleted\n");
+    }
+
     private void findPassagerByID() throws SQLException {
         log.info("Input ID of Passager you are looking for: ");
         String id = input.nextLine();
@@ -117,13 +186,37 @@ public class View {
         service.printAllPassagers();
     }
 
-    private void deletePassager() {
+    private void deletePassager() throws SQLException {
+        log.info("\nInput Passager ID: ");
+        String id = input.nextLine();
+        PassagerService service = new PassagerService();
+        int count = service.delete(id);
+        log.info(count + "rows were deleted\n");
     }
 
-    private void updatePassager() {
+    private void updatePassager() throws SQLException {
+        log.info("Input Passager ID : ");
+        String id = input.next();
+        log.info("Input FirstName: ");
+        String firstName = input.next();
+        log.info("Input SecondName: ");
+        String secondName = input.next();
+        log.info("Input nationality: ");
+        String nationality = input.next();
+        log.info("Input age: ");
+        int age = input.nextInt();
+        PassagerService service = new PassagerService();
+        Passager entity = service.find(id).get();
+        entity.setFirstName(firstName);
+        entity.setSecondName(secondName);
+        entity.setNationality(nationality);
+        entity.setAge(age);
+        int count = service.update(entity);
+        log.info(count + "rows were updated\n");
     }
 
     private void createForPassager() {
+        throw new UnsupportedOperationException("Method is not implemented yet in menu.");
     }
 
     private void printMainBookingInfo() throws SQLException {
@@ -150,13 +243,15 @@ public class View {
         String id = input.nextLine();
         FlightBookingService service = new FlightBookingService();
         int count = service.delete(id);
-        log.info("There are deleted %d rows\n", count);
+        log.info(count + "rows were deleted\n");
     }
 
     private void updateFlightBooking() {
+        throw new UnsupportedOperationException("Method is not implemented yet in menu.");
     }
 
     private void createForFlightBooking() {
+        throw new UnsupportedOperationException("Method is not implemented yet in menu.");
     }
 
     private void findFlightByID() throws SQLException {
@@ -177,74 +272,39 @@ public class View {
         String id = input.nextLine();
         FlightService service = new FlightService();
         int count = service.delete(id);
-        log.info("There are deleted %d rows\n", count);
+        log.info(count + "rows were deleted\n");
     }
 
     private void updateFlight() {
+        throw new UnsupportedOperationException("Method is not implemented yet in menu.");
     }
 
     private void createFlight() {
+        throw new UnsupportedOperationException("Method is not implemented yet in menu.");
     }
 
-    private void findAirlineByID() throws SQLException {
-        log.info("Input ID of Airline you are looking for: ");
-        String id = input.nextLine();
-        AirlineService service = new AirlineService();
-        service.findAirlineAndPrintInfo(id);
+    private void createContactDetails(){
+
     }
 
-    private void selectAirline() throws SQLException {
-        log.info("Table: Airline");
-        AirlineService service = new AirlineService();
-        service.printAllAirlines();
+    private void createAddress(){
+
     }
 
-    private void deleteFromAirline() throws SQLException {
-        log.info("\nInput Airline ID: ");
-        String id = input.nextLine();
-        AirlineService service = new AirlineService();
-        int count = service.delete(id);
-        log.info("There are deleted %d rows\n", count);
+    private void createCity(){
+
     }
 
-    private void updateAirline() {
+    private void createCountry(){
+        log.info("Input Country name : ");
+        String countryName = input.next();
+        log.info("Input 1 - if country in in EU and 0 otherwise: ");
+        int isEu = input.nextInt();
+        boolean isEuB = false;
+        if(isEu==1)isEuB = true;
+        Country country = new Country(countryName, isEuB);
     }
 
-    private void createForAirline() throws SQLException {
-        log.info("Input Airline ID : ");
-        int id = input.nextInt();
-        log.info("Input airlineName: ");
-        String airlineName = input.next();
-        log.info("Input address: ");
-        String address = input.next();
-        AirlineService service = new AirlineService();
-        AddressService addressService = new AddressService();
-        Airline entity = new Airline(id, airlineName, addressService.find(address).get());
-        int count = service.create(entity);
-        log.info("There are updated %d rows\n", count);
-    }
-
-    private void findPlaneByID() throws SQLException {
-        log.info("Input ID of Plane you are looking for: ");
-        String id = input.nextLine();
-        PlaneService planeService = new PlaneService();
-        planeService.printPlane(id);
-    }
-
-    private void selectPlane() throws SQLException {
-        log.info("Table: Plane");
-        PlaneService planeService = new PlaneService();
-        planeService.printAllPlanes();
-    }
-
-
-    private void deleteFromPlane() throws SQLException {
-        log.info("\nInput Plane ID: ");
-        String id = input.nextLine();
-        PlaneService planeService = new PlaneService();
-        int count = planeService.delete(id);
-        log.info("There are deleted %d rows\n", count);
-    }
 
     private void updatePlane() throws SQLException {
         log.info("Input Plane ID : ");
@@ -259,7 +319,7 @@ public class View {
         entity.setPlaneNumber(planeNumber);
         entity.setCapacity(capacity);
         int count = planeService.update(entity);
-        log.info("There are updated %d rows\n", count);
+        log.info(count + "rows were updated\n");
     }
 
     private void createForPlane() throws SQLException {
@@ -272,7 +332,7 @@ public class View {
         PlaneService planeService = new PlaneService();
         Plane entity = new Plane(id, planeNumber, capacity);
         int count = planeService.create(entity);
-        log.info("There are updated %d rows\n", count);
+        log.info(count + "rows were updated\n");
     }
 
 
@@ -304,7 +364,11 @@ public class View {
 
             try {
                 methodsMenu.get(keyMenu).print();
-            } catch (Exception e) {
+            }
+            catch (UnsupportedOperationException e) {
+                log.info(e.getMessage());
+            }catch (Exception e) {
+                log.info(e.getMessage());
             }
         } while (!keyMenu.equals("Q"));
     }
